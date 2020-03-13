@@ -11,14 +11,13 @@
 |
 */
 
-//use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index')->name('landing');
+Route::get('/', 'HomeController@front');
+Route::get('/home', 'HomeController@front')->name('landing');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 // Route group
@@ -55,4 +54,4 @@ Route::prefix('files')->group(function() {
 // get data
 Route::get('/getCities/{id}','CityController@getCities');
 Route::get('/getAuthorsByJob/{id}','StaffController@getAuthorsByJob');
-
+Route::get('/getRelated','NewsController@getRelated');

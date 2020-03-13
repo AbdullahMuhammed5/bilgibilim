@@ -18,7 +18,6 @@
     <link href="{{ asset('css/plugins/dropzone/basic.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/dropzone/dropzone.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/plugins/codemirror/codemirror.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('css/toggleButton.css')}}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
@@ -218,18 +217,18 @@
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
-        <div class="footer">
-            <div class="pull-right">
-                10GB of <strong>250GB</strong> Free.
-            </div>
-            <div>
-                <strong>Copyright</strong> Example Company &copy; 2014-2017
-            </div>
-        </div>
     </div>
 </div>
+
+<div class="footer">
+    <div class="pull-right">
+        10GB of <strong>250GB</strong> Free.
+    </div>
+    <div>
+        <strong>Copyright</strong> Example Company &copy; 2014-2017
+    </div>
+</div>
+
 
 <!-- Mainly scripts -->
 <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>

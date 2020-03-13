@@ -13,8 +13,11 @@ use App\City;
 use App\Country;
 use App\Http\Requests\CityRequest;
 use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
 class CityController extends Controller
@@ -28,7 +31,7 @@ class CityController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Response
+     * @return View
      * @throws Exception
      */
     public function index(Request $request)
@@ -54,7 +57,7 @@ class CityController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
     public function create()
     {
@@ -66,7 +69,7 @@ class CityController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CityRequest $request
-     * @return Response
+     * @return RedirectResponse
      */
     public function store(CityRequest $request)
     {
@@ -79,7 +82,7 @@ class CityController extends Controller
      * Display the specified resource.
      *
      * @param City $city
-     * @return void
+     * @return View
      */
     public function show(City $city)
     {
@@ -90,7 +93,7 @@ class CityController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param City $city
-     * @return Response
+     * @return View
      */
     public function edit(City $city)
     {
@@ -103,7 +106,7 @@ class CityController extends Controller
      *
      * @param CityRequest $request
      * @param City $city
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(CityRequest $request, City $city)
     {
@@ -116,7 +119,7 @@ class CityController extends Controller
      * Remove the specified resource from storage.
      *
      * @param City $city
-     * @return Response
+     * @return RedirectResponse
      * @throws Exception
      */
     public function destroy(City $city)

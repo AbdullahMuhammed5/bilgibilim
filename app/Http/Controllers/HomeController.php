@@ -12,9 +12,9 @@ class HomeController extends Controller
      *
      * @return Renderable
      */
-    public function index()
+    public function front()
     {
-        return view('landing');
+        return view('front.landing');
     }
 
     /**

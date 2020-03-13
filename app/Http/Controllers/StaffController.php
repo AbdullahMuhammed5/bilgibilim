@@ -12,6 +12,7 @@ use App\Country;
 use App\Traits\UploadFile;
 use Exception;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +31,7 @@ class StaffController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws Exception
      */
     public function index(Request $request)
@@ -38,6 +39,7 @@ class StaffController extends Controller
         $columns = json_encode($this->getColumns());
         if ($request->ajax()) {
             $data = Staff::latest()->with(['user', 'city', 'country', 'job', 'user.roles', 'image']);
+//            dd($data->get()->first()->image);
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', 'includes.ActionButtons')
@@ -77,7 +79,7 @@ class StaffController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StaffRequest $request
-     * @return Response
+     * @return RedirectResponse
      * @throws Exception
      */
     public function store(StaffRequest $request)
@@ -132,7 +134,7 @@ class StaffController extends Controller
      *
      * @param StaffRequest $request
      * @param Staff $staff
-     * @return Response
+     * @return RedirectResponse
      * @throws Exception
      */
     public function update(StaffRequest $request, Staff $staff)
@@ -176,12 +178,12 @@ class StaffController extends Controller
             ['data' => 'image', 'name' => 'image'],
             ['data' => 'user.first_name', 'name' => 'user.first_name'],
             ['data' => 'user.email', 'name' => 'user.email'],
-            ['data' => 'user.phone', 'name' => 'user.phone'],
+            ['data' => 'user.phone', 'name' => 'user.phone', 'defaultContent' => ""],
             ['data' => 'job.name', 'name' => 'job.name'],
             ['data' => 'user.roles[0].name', 'name' => 'user.roles.name'],
-            ['data' => 'city.name', 'name' => 'city_id'],
+            ['data' => 'city.name', 'name' => 'city_id', 'defaultContent' => ""],
             ['data' => 'country.name', 'name' => 'country_id'],
-            ['data' => 'gender', 'name' => 'gender'],
+            ['data' => 'gender', 'name' => 'gender', 'defaultContent' => ""],
             ['data' => 'is_active', 'name' => 'is_active'],
             ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]
         ];

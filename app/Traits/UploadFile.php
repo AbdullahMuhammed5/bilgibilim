@@ -26,6 +26,4 @@ trait UploadFile{
         return Storage::delete($filePath);
     }
 
-
-
 }

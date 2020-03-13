@@ -13,14 +13,14 @@ class JobSeeder extends Seeder
 
     public function run()
     {
-        Job::create(
+        Job::firstOrCreate(
             [
                 'name' => 'Writer',
                 'description' => 'Write posts and publish it.'
             ]
          );
 
-        Job::create([
+        Job::firstOrCreate([
             'name' => 'Reporter',
             'description' => 'Reports reports.'
         ]);
