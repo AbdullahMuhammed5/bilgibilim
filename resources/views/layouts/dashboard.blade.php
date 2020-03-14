@@ -35,7 +35,15 @@
             <ul class="nav metismenu" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="{{asset('img/profile_small.jpg')}}" />
+                            @if(auth()->user()->getRoleNames()[0] == "admin")
+                            <img alt="image" class="img-circle"
+                                 src="{{ auth()->user()->staff->image ? Storage::url(auth()->user()->staff->image->path) : asset('img/avatardefault.png') }}"
+                            style="width: 40px"/>
+                            @else
+                            <img alt="image" class="img-circle"
+                                 src="{{ asset('img/avatardefault.png') }}"
+                                 style="width: 40px; border-radius: 50%"/>
+                            @endif
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs">

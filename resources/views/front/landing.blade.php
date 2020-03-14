@@ -18,8 +18,10 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
 <body id="page-top" class="landing-page no-skin-config">
+
 <div class="navbar-wrapper">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -33,6 +35,11 @@
                 <a class="navbar-brand" href="{{ route('landing') }}">WEBAPPLAYERS</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a class="page-scroll" href="{{ route('landing') }}">{{ __('Home') }}</a></li>
+                        <li><a class="page-scroll" href="{{ route('front.articles') }}">{{ __('articles') }}</a></li>
+{{--                        <li><a class="page-scroll" href="{{ route('front.news') }}">{{ __('news') }}</a></li>--}}
+                    </ul>
                     <ul class="nav navbar-nav navbar-right">
                     @guest
                         <li><a class="page-scroll" href="{{ route('login') }}">{{ __('Login') }}</a></li>
@@ -59,7 +66,8 @@
         </div>
     </nav>
 </div>
-<div id="inSlider" class="carousel carousel-fade" data-ride="carousel"mi>
+
+<div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#inSlider" data-slide-to="0" class="active"></li>
         <li data-target="#inSlider" data-slide-to="1"></li>
@@ -108,6 +116,36 @@
     </a>
 </div>
 
+<section class="container" id="featured-news">
+    <article class="left-side article m-r-sm" style="background-image: url({{ 'https://via.placeholder.com/400' }})">
+            <span>padge</span>
+            <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum labore quos repudiandae!</h2>
+            <span>author name</span>
+            <span>published date</span>
+        </article>
+    <article class="right-side">
+            <article class="article m-b-sm" style="background-image: url({{ 'https://via.placeholder.com/400' }})">
+                <span>padge</span>
+                <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum labore quos repudiandae!</h2>
+                <span>author name</span>
+                <span>published date</span>
+            </article>
+            <article class="bottom">
+                <article class="article m-r-sm" style="background-image: url({{ 'https://via.placeholder.com/400' }})">
+                    <span>padge</span>
+                    <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum labore quos repudiandae!</h2>
+                    <span>author name</span>
+                    <span>published date</span>
+                </article>
+                <article class="article" style="background-image: url({{ 'https://via.placeholder.com/400' }})">
+                    <span>padge</span>
+                    <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum labore quos repudiandae!</h2>
+                    <span>author name</span>
+                    <span>published date</span>
+                </article>
+            </article>
+        </article>
+</section>
 
 <section id="contact" class="gray-section contact">
     <div class="container">

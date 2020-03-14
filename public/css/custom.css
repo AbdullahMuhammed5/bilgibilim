@@ -28,3 +28,32 @@
 td:has(img[alt='Folder Icon']){
     text-align: center;
 }
+
+#featured-news {
+    display: flex;
+    margin-top: 80px;
+}
+#featured-news .left-side {
+    width: 50%;
+}
+#featured-news .right-side {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+/*#featured-news .right-side > .article{*/
+/*    margin-bottom: 10px;*/
+/*}*/
+#featured-news .right-side > .bottom{
+    display: flex;
+}
+/*#featured-news .right-side > .bottom > article{*/
+/*    margin-right: 10px;*/
+/*}*/
+#featured-news .article {
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}

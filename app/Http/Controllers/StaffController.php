@@ -143,7 +143,7 @@ class StaffController extends Controller
 
         if ($image = $request['file']){
             $imgPath = $this->upload($image);
-            $staff->image()->update(['path' => $imgPath]);
+            $staff->image()->updateOrCreate(['path' => $imgPath]);
         }
         $staff->fill($inputs)->save();
         $staff->user->fill($inputs)->save();

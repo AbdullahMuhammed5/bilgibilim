@@ -20,6 +20,13 @@ Route::get('/', 'HomeController@front');
 Route::get('/home', 'HomeController@front')->name('landing');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
+// front
+Route::get('/articles', 'HomeController@articles')->name('front.articles');
+Route::get('/news', 'HomeController@news')->name('front.news');
+Route::get('/contact', 'HomeController@contact')->name('front.contact');
+
+
+
 // Route group
 Route::prefix('jobs')->group(function(){
     Route::get('', 'JobController@index')->name('jobs.index');

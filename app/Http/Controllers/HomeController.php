@@ -24,6 +24,10 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        return view('dashboard.index');
+        if (auth()->user()){
+            return view('dashboard.index');
+        }else{
+            return view('auth.login');
+        }
     }
 }
