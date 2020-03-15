@@ -1,17 +1,17 @@
 <td>
-    <div class="toggle-btn @if($row->published) active @endif">
-        <input type="checkbox" @if($row->published) checked @endif class="cb-value" id="{{'published'.$row->type.$row->id}}"/>
+    <div class="toggle-btn @if($row->is_featured) active @endif">
+        <input type="checkbox" @if($row->is_featured) checked @endif class="cb-value" id="{{'featured'.$row->type.$row->id}}"/>
         <span class="round-btn"></span>
     </div>
 </td>
 
 <script>
-    $('#{{'published'.$row->type.$row->id}}').click(function() {
+    $('#{{'featured'.$row->type.$row->id}}').click(function() {
         let mainParent = $(this).parent('.toggle-btn');
         let csrf_token = $('meta[name="csrf-token"]').attr('content');
         $.ajax({
             type: 'PUT',
-            url: "{{route('togglePublishNews', $row)}}",
+            url: "{{route('toggleFeatured', $row)}}",
             headers: { 'X-CSRF-TOKEN': csrf_token },
             success:(response) => {
                 if($(mainParent).find('input.cb-value').is(':checked')) {

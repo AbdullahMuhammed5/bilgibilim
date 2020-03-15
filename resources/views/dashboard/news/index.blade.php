@@ -10,9 +10,9 @@
             <th>Main Title</th>
             <th>Secondary Title</th>
             <th>Type</th>
-            <th>content</th>
             <th>Published</th>
-        @canany(['news-edit', 'news-delete', 'news-list'])
+            <th>Featured</th>
+            @canany(['news-edit', 'news-delete', 'news-list'])
             <th>Options</th>
             @endcanany
         </tr>

@@ -43,14 +43,19 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label>Related News:</label>
-                    {!! Form::select('related[]', [], null, ["data-placeholder"=>"Select related Users ...",
-                    'multiple', "class"=>"chosen-select", 'id' => 'get-related']) !!}
-                    <span class="invalid-feedback" id="maxValueFeedback"
-                          style="display: none">You just hit the maximum length of related news.</span>
+                    <label>Country:</label>
+                    {{ Form::select('categories', $categories, false, ['placeholder' => 'Select Category', 'class' => 'form-control']) }}
                 </div>
             </div>
-
+{{--            <div class="col-sm-6">--}}
+{{--                <div class="form-group">--}}
+{{--                    <label>Related News:</label>--}}
+{{--                    {!! Form::select('related[]', [], null, ["data-placeholder"=>"Select related Users ...",--}}
+{{--                    'multiple', "class"=>"chosen-select", 'id' => 'get-related']) !!}--}}
+{{--                    <span class="invalid-feedback" id="maxValueFeedback"--}}
+{{--                          style="display: none">You just hit the maximum length of related news.</span>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <div class="col-sm-12">
                 <label for="document">Documents</label>
                 <div class="dropzone" id="dropzone">

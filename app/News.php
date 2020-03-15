@@ -30,7 +30,7 @@ class News extends Model
      * @var array
      */
     protected $fillable = [
-        'main_title', 'secondary_title', 'author_id', 'type', 'content', 'published'
+        'main_title', 'secondary_title', 'author_id', 'type', 'content', 'published', 'is_featured'
     ];
 
     public function staff(){
@@ -41,12 +41,8 @@ class News extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function files(){
-        return $this->morphMany(File::class, 'fileble');
-    }
-
-    public function related(){
-        return $this->hasMany(Related::class, 'news_id');
+    public function categories(){
+        return $this->belongsToMany(Category::class);
     }
 
     /**
@@ -58,5 +54,16 @@ class News extends Model
     public function scopePublished($query)
     {
         $query->wherePublished(True);
+    }
+
+    /**
+     * Scope a query to only include published news.
+     *
+     * @param Builder $query
+     * @return void
+     */
+    public function scopeFeatured($query)
+    {
+        $query->whereIsFeatured(True);
     }
 }

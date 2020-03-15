@@ -3,13 +3,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\NewsRequest;
 use App\News;
-use App\Related;
 use App\Traits\UploadFile;
 use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
 class NewsController extends Controller
@@ -25,12 +28,11 @@ class NewsController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Response
+     * @return Factory|View
      * @throws Exception
      */
     public function index(Request $request)
     {
-
         $columns = json_encode($this->getColumns());
         if ($request->ajax()) {
             $data = News::latest()->with('staff.user');
@@ -39,6 +41,8 @@ class NewsController extends Controller
                 ->addColumn('action', 'dashboard.news.ActionButtons')
                 ->addColumn('published', function($row){
                     return view('dashboard.news.toggleButton', compact('row'));
+                })->addColumn('featured', function($row){
+                    return view('dashboard.news.toggleFeatured', compact('row'));
                 })
                 ->rawColumns(['action', 'published'])
                 ->make(true);
@@ -49,33 +53,29 @@ class NewsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
     public function create()
     {
         $types = News::$types;
-        return view('dashboard.news.create', compact('types'));
+        $categories = Category::pluck('name', 'id')->all();
+        return view('dashboard.news.create', compact('types', 'categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param NewsRequest $request
-     * @return Response
+     * @return RedirectResponse
      */
     public function store(NewsRequest $request)
     {
         $inserted = News::create($request->all());
 
-        if ($related = $request['related']){
-            $inserted->related()->createMany($this->getInputs($related, 'related_id'));
-        }
         if ($images = $request['images']){
             $inserted->images()->createMany($this->getInputs($images, 'path'));
         }
-        if ($files = $request['files']){
-            $inserted->files()->createMany($this->getInputs($files, 'path'));
-        }
+        $inserted->categories()->sync($request['categories']);
         return redirect()->route('news.index')
             ->with('success', 'news created successfully');
     }
@@ -84,7 +84,7 @@ class NewsController extends Controller
      * Display the specified resource.
      *
      * @param news $news
-     * @return Response
+     * @return View
      */
     public function show(News $news)
     {
@@ -95,13 +95,13 @@ class NewsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param news $news
-     * @return Response
+     * @return Factory|View
      */
     public function edit(News $news)
     {
-        $allNews = News::published()->pluck('main_title', 'id')->all();
+        $categories = Category::pluck('name', 'id')->all();
         $authors = app('App\Http\Controllers\StaffController')->getAuthorsByJob($news->type);
-        return view('dashboard.news.edit', compact('news', 'authors', 'allNews'));
+        return view('dashboard.news.edit', compact('news', 'authors', 'categories'));
     }
 
     /**
@@ -109,22 +109,16 @@ class NewsController extends Controller
      *
      * @param NewsRequest $request
      * @param news $news
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(NewsRequest $request, News $news)
     {
         $news->update($request->all());
 
-        if ($request->related){
-            $news->related()->delete(); // delete old related news
-            $news->related()->createMany($this->getInputs($request->related, 'related_id'));
-        }
         if ($images = $request['images']){
             $news->images()->createMany($this->getInputs($images, 'path'));
         }
-        if ($files = $request['files']){
-            $news->files()->createMany($this->getInputs($files, 'path'));
-        }
+        $news->categories()->sync($request['categories']);
         return redirect()->route('news.index')
             ->with('success', 'news updated successfully');
     }
@@ -133,7 +127,7 @@ class NewsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param News $news
-     * @return  Response
+     * @return RedirectResponse
      * @throws Exception
      */
     public function destroy(News $news)
@@ -152,8 +146,8 @@ class NewsController extends Controller
             ['data' => 'main_title', 'name' => 'main_title'],
             ['data' => 'secondary_title', 'name' => 'secondary_title'],
             ['data' => 'type', 'name' => 'type'],
-            ['data' => 'content', 'name' => 'content'],
             ['data' => 'published', 'name' => 'published'],
+            ['data' => 'featured', 'name' => 'featured'],
             ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]
         ];
     }
@@ -172,21 +166,8 @@ class NewsController extends Controller
         $news->update(['published' => !$news->published ]);
     }
 
-    // get related news based on search
-    public function getRelated(Request $request){
-        $term = trim($request['search']);
-
-        if (empty($term)) {
-            return \Response::json([]);
-        }
-        $result = News::where('main_title', 'like', "%$term%")->select('main_title', 'id')->get();
-        $formatted_news = [];
-
-        foreach ($result as $news) {
-            $formatted_news[] = ['id' => $news->id, 'text' => $news->main_title];
-        }
-
-        return \Response::json($formatted_news);
+    public function toggleFeatured(News $news){
+        $news->update(['is_featured' => !$news->is_featured ]);
     }
 
 }

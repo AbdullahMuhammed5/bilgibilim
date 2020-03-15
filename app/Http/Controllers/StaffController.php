@@ -11,11 +11,13 @@ use App\Staff;
 use App\Country;
 use App\Traits\UploadFile;
 use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
 class StaffController extends Controller
@@ -31,7 +33,7 @@ class StaffController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return View
      * @throws Exception
      */
     public function index(Request $request)
@@ -39,7 +41,6 @@ class StaffController extends Controller
         $columns = json_encode($this->getColumns());
         if ($request->ajax()) {
             $data = Staff::latest()->with(['user', 'city', 'country', 'job', 'user.roles', 'image']);
-//            dd($data->get()->first()->image);
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', 'includes.ActionButtons')
@@ -65,7 +66,7 @@ class StaffController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
     public function create()
     {

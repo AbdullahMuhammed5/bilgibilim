@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="col-sm-12">
-            <div class="col-sm-2">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label>{!! Form::radio('published' , 0, null, ['class'=>'i-checks']) !!} Draft</label>
                     <label>{!! Form::radio('published', 1, null, ['class'=>'i-checks']) !!} Publish</label>
@@ -41,16 +41,22 @@
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label>Related News:</label>
-
-                    {!! Form::select('related[]', $allNews, null, ["data-placeholder"=>"Select related Users ...",
-                    'multiple', "class"=>"chosen-select", 'id' => 'get-related']) !!}
-
-                    <span class="invalid-feedback" id="maxValueFeedback"
-                          style="display: @if(count($allNews) > 10) block @else none @endif">
-                        You just hit the maximum length of related news.</span>
+                    <label>Country:</label>
+                    {{ Form::select('categories', $categories, null, ['placeholder' => 'Select Category', 'class' => 'form-control']) }}
                 </div>
             </div>
+{{--            <div class="col-sm-6">--}}
+{{--                <div class="form-group">--}}
+{{--                    <label>Related News:</label>--}}
+
+{{--                    {!! Form::select('related[]', $allNews, null, ["data-placeholder"=>"Select related Users ...",--}}
+{{--                    'multiple', "class"=>"chosen-select", 'id' => 'get-related']) !!}--}}
+
+{{--                    <span class="invalid-feedback" id="maxValueFeedback"--}}
+{{--                          style="display: @if(count($allNews) > 10) block @else none @endif">--}}
+{{--                        You just hit the maximum length of related news.</span>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
         <div class="col-sm-12">
             <label for="document">Documents</label>

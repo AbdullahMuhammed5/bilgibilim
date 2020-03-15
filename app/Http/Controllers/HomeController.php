@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\News;
 use Illuminate\Contracts\Support\Renderable;
 
 class HomeController extends Controller
@@ -14,7 +15,24 @@ class HomeController extends Controller
      */
     public function front()
     {
-        return view('front.landing');
+        $featuredNews = News::featured()->with('images')->get()->toArray();
+//        dd(News::featured()->get()[0]);
+        $carouselIndexes = ['one', 'two', 'three', 'four']; // class names for carousel slider
+        for ($i = 0; $i < count($featuredNews); $i++ )
+            $featuredNews[$i]['carouselIndex'] = $carouselIndexes[$i];
+//        dd($featuredNews[0]);
+        return view('front.home', compact('featuredNews'));
+    }
+
+    /**
+     * Show Article.
+     *
+     * @param News $news
+     * @return Renderable
+     */
+    public function article(News $news)
+    {
+        return view('front.article.show', compact('news'));
     }
 
     /**

@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@front');
-Route::get('/home', 'HomeController@front')->name('landing');
+Route::get('/home', 'HomeController@front')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 // front
 Route::get('/articles', 'HomeController@articles')->name('front.articles');
+Route::get('/article/{news}', 'HomeController@article')->name('front.article');
 Route::get('/news', 'HomeController@news')->name('front.news');
 Route::get('/contact', 'HomeController@contact')->name('front.contact');
 
@@ -50,6 +51,7 @@ Route::resource('images', 'ImageController');
 // Toggle buttons APIs
 Route::put('toggleStaffStatus/{staff}', 'StaffController@toggleActivity')->name('staffToggleStatus');
 Route::put('togglePublishNews/{news}', 'NewsController@togglePublishing')->name('togglePublishNews');
+Route::put('toggleFeatured/{news}', 'NewsController@toggleFeatured')->name('toggleFeatured');
 
 // File uploads APIs
 Route::prefix('files')->group(function() {
