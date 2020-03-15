@@ -7276,12 +7276,12 @@ body.landing-page {
   color: #fff;
 }
 .landing-page .btn-primary {
-  background-color: #1ab394;
-  border-color: #1ab394;
-  color: #FFFFFF;
-  font-size: 14px;
-  padding: 10px 20px;
-  font-weight: 600;
+  /*background-color: #1ab394;*/
+  /*border-color: #1ab394;*/
+  /*color: #FFFFFF;*/
+  /*font-size: 14px;*/
+  /*padding: 10px 20px;*/
+  /*font-weight: 600;*/
 }
 .landing-page .btn-primary:hover,
 .landing-page .btn-primary:focus,

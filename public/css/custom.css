@@ -28,32 +28,50 @@
 td:has(img[alt='Folder Icon']){
     text-align: center;
 }
+nav{
+    background-color: #3c9f9f !important;
+}
+#home-page{
+    margin-top: 120px;
+}
+#inSlider{
 
-#featured-news {
-    display: flex;
+}
+
+#most-viewed{
     margin-top: 80px;
 }
-#featured-news .left-side {
+#most-viewed > section {
+    display: flex;
+}
+#most-viewed .left-side {
     width: 50%;
 }
-#featured-news .right-side {
+#most-viewed .right-side {
     display: flex;
     flex-direction: column;
     width: 50%;
 }
-/*#featured-news .right-side > .article{*/
-/*    margin-bottom: 10px;*/
-/*}*/
-#featured-news .right-side > .bottom{
+#most-viewed .right-side > .bottom{
     display: flex;
 }
-/*#featured-news .right-side > .bottom > article{*/
-/*    margin-right: 10px;*/
-/*}*/
-#featured-news .article {
+#most-viewed .article {
     box-sizing: border-box;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     padding: 20px;
+}
+#categories{
+    margin-top: 80px;
+}
+#categories > section{
+    display: flex;
+    justify-content: space-between;
+}
+#latest{
+    margin-top: 80px;
+}
+#latest > .row{
+    background-color: #f3f3f4;
 }
