@@ -20,35 +20,29 @@ $(function () {
             $('span#maxValueFeedback').css('display', 'none');
         }
     });
-    // let chosenSelectUrl = '{{ $route }}';
-    if ($('#get-related').length){
-        var select2Url = 'getRelated';
-    } else if ($('#get-invited').length){
-        var select2Url = 'getInvited';
-    } else if ($('#get-authorized').length){
-        var select2Url = 'getAuthorized';
-    }
+    var specialCharacters = /^![^a-zA-Z0-9]+$/;
     // file chosen select
     $(".chosen-select").select2({
-        ajax: {
-            dataType: 'json',
-            type: "GET",
-            url: `${window.location.origin}/${select2Url}`,
-            data: function (params) {
-                if (params){
-                    return {
-                        search: params.term
-                    };
-                }
-            },
-            processResults: function (data) {
-                return {
-                    results: data
-                };
-            }
-        },
-        minimumInputLength: 1,
-        max_selected_options: 10
+        tags: true,
+        // createTag: function (params) {
+        //     // Don't offset to create a tag if there is no @ symbol
+        //     if (!specialCharacters.test(params.term)) {
+        //         // Return null to disable tag creation
+        //         return null;
+        //     }
+        //
+        //     return {
+        //         id: params.term,
+        //         text: params.term,
+        //         newTag: true
+        //     }
+        // },
+        // insertTag: function (data, tag) {
+        //     // Insert the tag at the end of the results
+        //     data.push(tag);
+        // },
+        // minimumInputLength: 1,
+        max_selected_options: 5
     });
 
     // handle request for authors based on post type

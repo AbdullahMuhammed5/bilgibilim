@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\NewsRequest;
 use App\News;
+use App\Tag;
 use App\Traits\UploadFile;
 use Exception;
 use Illuminate\Contracts\View\Factory;
@@ -59,7 +60,8 @@ class NewsController extends Controller
     {
         $types = News::$types;
         $categories = Category::pluck('name', 'id')->all();
-        return view('dashboard.news.create', compact('types', 'categories'));
+        $tags = Tag::pluck('name', 'name')->all();
+        return view('dashboard.news.create', compact('types', 'categories', 'tags'));
     }
 
     /**
@@ -76,6 +78,11 @@ class NewsController extends Controller
             $inserted->images()->createMany($this->getInputs($images, 'path'));
         }
         $inserted->categories()->sync($request['categories']);
+        foreach ($request['tags'] as $key=>$tag){
+            $newTag = Tag::updateOrCreate(['name' => $tag]);
+            $tags[] = $newTag->id;
+        }
+        $inserted->tags()->sync($tags);
         return redirect()->route('news.index')
             ->with('success', 'news created successfully');
     }
@@ -119,6 +126,7 @@ class NewsController extends Controller
             $news->images()->createMany($this->getInputs($images, 'path'));
         }
         $news->categories()->sync($request['categories']);
+        $news->tags()->sync($request['tags']);
         return redirect()->route('news.index')
             ->with('success', 'news updated successfully');
     }

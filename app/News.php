@@ -13,18 +13,6 @@ class News extends Model
     public static $types = ['News' => 'News', 'Article' => 'Article'];
 
     /**
-     * Override deleting behavior for parent
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function($news)
-        {
-            $news->related()->delete();
-        });
-    }
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -43,6 +31,10 @@ class News extends Model
 
     public function categories(){
         return $this->belongsToMany(Category::class);
+    }
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
     }
 
     /**

@@ -35,32 +35,33 @@
             </div>
         </div>
         <div class="col-sm-12" style=" margin-bottom: 30px;">
-            <div class="col-sm-6">
+            <div class="col-sm-2">
                 <div class="form-group">
+                    <label>Status:</label><br>
                     <label>{!! Form::radio('published' , 0, true, ['class'=>'i-checks']) !!} Draft</label>
                     <label>{!! Form::radio('published', 1, false, ['class'=>'i-checks']) !!} Publish</label>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <div class="form-group">
-                    <label>Country:</label>
+                    <label>Category:</label>
                     {{ Form::select('categories', $categories, false, ['placeholder' => 'Select Category', 'class' => 'form-control']) }}
                 </div>
             </div>
-{{--            <div class="col-sm-6">--}}
-{{--                <div class="form-group">--}}
-{{--                    <label>Related News:</label>--}}
-{{--                    {!! Form::select('related[]', [], null, ["data-placeholder"=>"Select related Users ...",--}}
-{{--                    'multiple', "class"=>"chosen-select", 'id' => 'get-related']) !!}--}}
-{{--                    <span class="invalid-feedback" id="maxValueFeedback"--}}
-{{--                          style="display: none">You just hit the maximum length of related news.</span>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-            <div class="col-sm-12">
-                <label for="document">Documents</label>
-                <div class="dropzone" id="dropzone">
-
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label>Tags:</label>
+                    {!! Form::select('tags[]', $tags, null, ["data-placeholder"=>"Select tags ...",
+                    'multiple', "class"=>"chosen-select", 'id' => 'get-tags']) !!}
+                    <span class="invalid-feedback" id="maxValueFeedback"
+                          style="display: none">You just hit the maximum length of tags.</span>
                 </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <label for="document">Documents</label>
+            <div class="dropzone" id="dropzone">
+
             </div>
         </div>
         <div class="col-sm-12 col-md-12 text-center">
