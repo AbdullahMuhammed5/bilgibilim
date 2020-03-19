@@ -25,7 +25,7 @@ Route::get('/articles', 'HomeController@articles')->name('front.articles');
 Route::get('/article/{news}', 'HomeController@article')->name('front.article');
 Route::get('/news', 'HomeController@news')->name('front.news');
 Route::get('/contact', 'HomeController@contact')->name('front.contact');
-
+Route::get('/categories/{name}', 'CategoryController@getByCategory')->name('front.category');
 
 
 // Route group

@@ -34,9 +34,6 @@ td:has(img[alt='Folder Icon']){
 .carousel-caption {
     padding: 60px;
 }
-#home-page{
-    margin-top: 120px;
-}
 #inSlider .header-back{
     background-size: cover;
     background-position: center;
@@ -69,6 +66,7 @@ td:has(img[alt='Folder Icon']){
 }
 #categories{
     margin-top: 80px;
+    text-align: center;
 }
 #categories > section{
     display: flex;
@@ -79,4 +77,10 @@ td:has(img[alt='Folder Icon']){
 }
 #latest > .row{
     background-color: #f3f3f4;
+}
+.product-imitation{
+    padding: 0;
+}
+#front-page-wrapper{
+ margin-top: 150px;
 }

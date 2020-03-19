@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\News;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,20 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getByCategory($name)
+    {
+        $allNews = News::with('images')->whereHas('categories', function($q) use ($name){
+            $q->where('categories.name', $name);
+        })->get();
+        return view('front.categories.view', compact('allNews'));
     }
 
     /**

@@ -7,6 +7,7 @@
         <ol class="carousel-indicators">
             <li data-target="#inSlider" data-slide-to="0" class="active"></li>
             <li data-target="#inSlider" data-slide-to="1"></li>
+            <li data-target="#inSlider" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner" role="listbox">
             @foreach($featuredNews as $key=>$news)
@@ -25,17 +26,6 @@
                      style="background-image: url('{{Storage::url($news['images'][0]['path'])}}')"></div>
             </div>
             @endforeach
-{{--            <div class="item">--}}
-{{--                <div class="container">--}}
-{{--                    <div class="carousel-caption blank">--}}
-{{--                        <h1>We create meaningful <br/> interfaces that inspire.</h1>--}}
-{{--                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>--}}
-{{--                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <!-- Set background for slide in css -->--}}
-{{--                <div class="header-back two"></div>--}}
-{{--            </div>--}}
         </div>
         <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -345,21 +335,27 @@
     <section id="categories">
         <header>
             <h2 class="font-bold">CATEGORIES</h2>
-            <hr class="hr-line-solid m-b-lg" style="max-width: 200px; margin-left: 0;">
+            <hr class="hr-line-solid m-b-lg" style="max-width: 200px;">
         </header>
         <section>
-            <article><img src="https://via.placeholder.com/200" alt="">
-                <h3>Lorem ipsum.</h3>
-                <a href="" class="btn btn-primary">View all</a></article>
-            <article><img src="https://via.placeholder.com/200" alt="">
-                <h3>Lorem ipsum.</h3>
-                <a href="" class="btn btn-primary">View all</a></article>
-            <article><img src="https://via.placeholder.com/200" alt="">
-                <h3>Lorem ipsum.</h3>
-                <a href="" class="btn btn-primary">View all</a></article>
-            <article><img src="https://via.placeholder.com/200" alt="">
-                <h3>Lorem ipsum.</h3>
-                <a href="" class="btn btn-primary">View all</a></article>
+            @foreach($categories as $category)
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+                        <div class="product-imitation">
+                            <img src="{{ asset("img/categories/$category->name.jpg")  }}" alt="" width="200px" height="120">
+                        </div>
+                        <div class="product-desc">
+                            <small class="text-muted">Category</small>
+                            <a href="#" class="product-name"> {{ $category->name }}</a>
+                            <div class="m-t text-left">
+                                <a href="{{ route('front.category', $category->name) }}"
+                                   class="btn btn-xs btn-outline btn-primary">View all
+                                    <i class="fa fa-long-arrow-right"></i> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </section>
     </section>
 
@@ -402,51 +398,4 @@
 
 </div>
 
-<section id="contact" class="gray-section contact">
-    <div class="container">
-        <div class="row m-b-lg">
-            <div class="col-lg-12 text-center">
-                <div class="navy-line"></div>
-                <h1>Contact Us</h1>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
-            </div>
-        </div>
-        <div class="row m-b-lg">
-            <div class="col-lg-3 col-lg-offset-3">
-                <address>
-                    <strong><span class="navy">Company name, Inc.</span></strong><br/>
-                    795 Folsom Ave, Suite 600<br/>
-                    San Francisco, CA 94107<br/>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="col-lg-4">
-                <p class="text-color">
-                    Consectetur adipisicing elit. Aut eaque, totam corporis laboriosam veritatis quis ad perspiciatis, totam corporis laboriosam veritatis, consectetur adipisicing elit quos non quis ad perspiciatis, totam corporis ea,
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <a href="mailto:test@email.com" class="btn btn-primary">Send us mail</a>
-                <p class="m-t-sm">
-                    Or follow us on social platform
-                </p>
-                <ul class="list-inline social-icon">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
-                <p><strong>&copy; 2015 Company Name</strong><br/> consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-            </div>
-        </div>
-    </div>
-</section>
 @stop
