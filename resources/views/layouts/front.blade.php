@@ -4,186 +4,158 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="News website">
 
-    <title>INSPINIA - Landing Page</title>
+    <title>Bilgibilim</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('front_styles/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Animation CSS -->
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{asset('front_styles/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('front_styles/css/slick-theme.css')}}" rel="stylesheet">
+    <link href="{{asset('front_styles/css/slick.css')}}" rel="stylesheet">
 </head>
 <body id="page-top" class="landing-page no-skin-config">
-
-<div class="navbar-wrapper">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ route('home') }}">WEBAPPLAYERS</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a class="page-scroll" href="{{ route('home') }}">{{ __('Home') }}</a></li>
-                    <li><a class="page-scroll" href="{{ route('front.articles') }}">{{ __('articles') }}</a></li>
-                    {{--                        <li><a class="page-scroll" href="{{ route('front.news') }}">{{ __('news') }}</a></li>--}}
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @guest
-                        <li><a class="page-scroll" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                        @if (Route::has('register'))
-                            <li><a class="page-scroll" href="{{ route('register') }}">{{ __('Register') }}</a></li>
-                        @endif
-                    @else
-                        @if(count(auth()->user()->getRoleNames()))
-                            <li><a class="page-scroll" href="{{ url('dashboard') }}">{{ __('Go To Dashboard') }}</a></li>
-                        @endif
-                        <li>
-                            <a class="page-scroll" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                               document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+    <a href="index.html" class="navbar-brand logo order-1 mx-auto">
+        <img class="col-md-10" src="{{asset('img/front/blilgilm-logo.png')}}" alt="logo">
+    </a>
+</nav>
+<!-- navbar navbar navbar-expand-sm sticky-top mb-5 -->
+<nav class="navbar navbar navbar-expand-lg sticky-top mb-5">
+    <section class="container">
+        <button class="navbar-toggler ml-auto text-light order-3" data-toggle="collapse" data-target="#navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse order-4 order-md-2" id="navigation">
+            <ul class="navbar-nav text-uppercase">
+                <li class="nav-item">
+                    <a href="/" class="nav-link active">home</a>
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                    <div class="d-flex">
+                        <div class="dropdown mr-1">
+                            <a href="#categories" class="nav-link" class=" dropdown-toggle" id="dropdownMenuOffset"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                               data-offset="10,20">categories <i class="fas fa-chevron-down"></i>
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
-                    @endguest
-                </ul>
-            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                                @foreach($categories as $category)
+                                    <a class="dropdown-item ml-0" href="{{ route('front.category',['id' =>$category->id])}}">{{$category->name}}</a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+{{--                    <a href="{{route('front.news')}}" class="nav-link">News</a>--}}
+                </li>
+                <li class="nav-item">
+{{--                    <a href="{{route('front.articles')}}" class="nav-link"> Articles</a>--}}
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link"> contact</a>
+                </li>
+            </ul>
+            <form class="form-inline ml-auto" method='get' action='/home/search'>
+                <input class="form-control " name='keyword' type="text" placeholder="Search" aria-label="Search" required>
+                <button class = "fa fa-search" style="color:white" type='submit'></button>
+            </form>
         </div>
-    </nav>
-</div>
-
+    </section>
+</nav>
 <div id="front-page-wrapper" class="container">
     @yield('content')
 </div>
 
-<section id="contact" class="gray-section contact">
-    <div class="container">
-        <div class="row m-b-lg">
-            <div class="col-lg-12 text-center">
-                <div class="navy-line"></div>
-                <h1>Contact Us</h1>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
-            </div>
-        </div>
-        <div class="row m-b-lg">
-            <div class="col-lg-3 col-lg-offset-3">
-                <address>
-                    <strong><span class="navy">Company name, Inc.</span></strong><br/>
-                    795 Folsom Ave, Suite 600<br/>
-                    San Francisco, CA 94107<br/>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-            </div>
-            <div class="col-lg-4">
-                <p class="text-color">
-                    Consectetur adipisicing elit. Aut eaque, totam corporis laboriosam veritatis quis ad perspiciatis, totam corporis laboriosam veritatis, consectetur adipisicing elit quos non quis ad perspiciatis, totam corporis ea,
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <a href="mailto:test@email.com" class="btn btn-primary">Send us mail</a>
-                <p class="m-t-sm">
-                    Or follow us on social platform
-                </p>
-                <ul class="list-inline social-icon">
-                    <li><a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
-                <p><strong>&copy; 2015 Company Name</strong><br/> consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-            </div>
-        </div>
-    </div>
-</section>
 
+<!-- footer -->
+<footer>
+    <section class="container">
+        <div class="row mb-4">
+            <section class="products col-sm col-md-3 col-lg-4 mb-5">
+                <h4 class="text-uppercase mb-4">top products</h4>
+                <ul class="pl-0">
+                    <li>Managed website</li>
+                    <li>Manage Reputation</li>
+                    <li>Power Tools</li>
+                    <li>Marketing Servicse</li>
+                </ul>
+            </section>
+            <section class="email col-sm col-md-6 col-lg-4 mb-5">
+                <h4 class="text-uppercase mb-4">newsletter</h4>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit ipsum dolor</p>
+                <form class="form-inline">
+                    <div class="form-group mb-0">
+                        <input type="email" class="form-control mr-2" id="exampleInputEmail1"
+                               aria-describedby="emailHelp" placeholder="Enter email">
+                    </div>
+                    <button type="button" class="btn btn-primary ml-2">Subscribe</button>
+                </form>
+            </section>
+            <section class="insta offset-lg-1 col-sm col-md-3 col-lg-3">
+                <h4 class="text-uppercase mb-4">instagram feed</h4>
+                <figure>
+                    <img src="img/i1.jpg" class="mb-1">
+                    <img src="img/i2.jpg" class="mb-1">
+                    <img src="img/i3.jpg" class="mb-1">
+                    <img src=" img/i4.jpg" class="mb-1">
+                    <img src=" img/i5.jpg">
+                    <img src=" img/i6.jpg">
+                    <img src=" img/i7.jpg">
+                    <img src=" img/i8.jpg">
+                </figure>
+            </section>
+        </div>
+    </section>
+    <section class="last text-center">
+        <p>Copyright &copy; All Right Reserved 2019
+        </p>
+    </section>
+
+</footer>
+<!-- end of footer -->
 
 <!-- Mainly scripts -->
 <script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-<script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-
-<!-- Custom and plugin javascript -->
-<script src="{{ asset('js/inspinia.js') }}"></script>
-<script src="{{ asset('js/plugins/pace/pace.min.js') }}"></script>
-<script src="{{ asset('js/plugins/wow/wow.min.js') }}"></script>
+<script src="{{ asset('front_styles/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('front_styles/js/slick.js') }}"></script>
 
 <script>
-
-    $(document).ready(function () {
-
-        $('body').scrollspy({
-            target: '.navbar-fixed-top',
-            offset: 80
-        });
-
-        // Page scrolling feature
-        $('a.page-scroll').bind('click', function(event) {
-            var link = $(this);
-            $('html, body').stop().animate({
-                scrollTop: $(link.attr('href')).offset().top - 50
-            }, 500);
-            event.preventDefault();
-            $("#navbar").collapse('hide');
-        });
-    });
-
-    var cbpAnimatedHeader = (function() {
-        var docElem = document.documentElement,
-            header = document.querySelector( '.navbar-default' ),
-            didScroll = false,
-            changeHeaderOn = 200;
-        function init() {
-            window.addEventListener( 'scroll', function( event ) {
-                if( !didScroll ) {
-                    didScroll = true;
-                    setTimeout( scrollPage, 250 );
+    $(".regular").slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        centerPadding: 0,
+        centerMode: false,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        arrows: true,
+        responsive: [
+            {
+                breakpoint: 980, // tablet breakpoint
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    centerMode: true,
                 }
-            }, false );
-        }
-        function scrollPage() {
-            var sy = scrollY();
-            if ( sy >= changeHeaderOn ) {
-                $(header).addClass('navbar-scroll')
+            },
+            {
+                breakpoint: 480, // mobile breakpoint
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    centerMode: true,
+                }
             }
-            else {
-                $(header).removeClass('navbar-scroll')
-            }
-            didScroll = false;
-        }
-        function scrollY() {
-            return window.pageYOffset || docElem.scrollTop;
-        }
-        init();
-
-    })();
-
-    // Activate WOW.js plugin for animation on scrol
-    new WOW().init();
-
+        ],
+        prevArrow: "<img class='a-left control-c prev slick-prev' alt='' src='{{ asset('img/front/back-2.png') }}'>",
+        nextArrow: "<img class='a-right control-c next slick-next' alt='' src='{{asset('img/front/next-2.png')}}'>"
+    });
 </script>
 
 </body>

@@ -42,7 +42,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Country:</label>
-                    {{ Form::select('categories', $categories, null, ['placeholder' => 'Select Category', 'class' => 'form-control']) }}
+                    {{ Form::select('category_id', $categories, null, ['placeholder' => 'Select Category', 'class' => 'form-control']) }}
                 </div>
             </div>
 {{--            <div class="col-sm-6">--}}

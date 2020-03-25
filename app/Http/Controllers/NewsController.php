@@ -77,7 +77,6 @@ class NewsController extends Controller
         if ($images = $request['images']){
             $inserted->images()->createMany($this->getInputs($images, 'path'));
         }
-        $inserted->categories()->sync($request['categories']);
         foreach ($request['tags'] as $key=>$tag){
             $newTag = Tag::updateOrCreate(['name' => $tag]);
             $tags[] = $newTag->id;
@@ -125,7 +124,6 @@ class NewsController extends Controller
         if ($images = $request['images']){
             $news->images()->createMany($this->getInputs($images, 'path'));
         }
-        $news->categories()->sync($request['categories']);
         $news->tags()->sync($request['tags']);
         return redirect()->route('news.index')
             ->with('success', 'news updated successfully');

@@ -16,12 +16,20 @@ class HomeController extends Controller
      */
     public function front()
     {
-        $featuredNews = News::featured()->with('images')->get()->toArray();
-        $carouselIndexes = ['one', 'two', 'three', 'four']; // class names for carousel slider
-        for ($i = 0; $i < count($featuredNews); $i++ )
-            $featuredNews[$i]['carouselIndex'] = $carouselIndexes[$i];
+        $sectionOne = News::featured()->with('images')->limit(5)->get()->toArray();
+        $sliderNews = array_slice($sectionOne, 0, 3);
+        $sideBarNews = array_slice($sectionOne, 2, 2);
+        $allArticles = News::whereType('Article')->with('images')->get();
         $categories = Category::all();
-        return view('front.home', compact('featuredNews', 'categories'));
+        $categoriesSection = [
+            'Politics' => News::where('category_id', Category::POLITICS)->limit(2)->get(),
+            'Technology' => News::where('category_id', Category::TECHNOLOGY)->limit(2)->get(),
+            'Sports' => News::where('category_id', Category::SPORTS)->limit(2)->get(),
+            'Science' => News::where('category_id', Category::SCIENCE)->limit(2)->get(),
+        ];
+        $worldNews = News::where('category_id', Category::WORLD)->with('images')->limit(4)->get()->toArray();
+        return view('front.home', compact(
+            'sliderNews', 'sideBarNews', 'categories', 'allArticles', 'categoriesSection', 'worldNews'));
     }
 
     /**

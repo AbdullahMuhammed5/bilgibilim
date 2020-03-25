@@ -18,7 +18,7 @@ class News extends Model
      * @var array
      */
     protected $fillable = [
-        'main_title', 'secondary_title', 'author_id', 'type', 'content', 'published', 'is_featured'
+        'main_title', 'secondary_title', 'author_id', 'type', 'content', 'published', 'is_featured', 'category_id'
     ];
 
     public function staff(){
@@ -29,8 +29,8 @@ class News extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function categories(){
-        return $this->belongsToMany(Category::class);
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 
     public function tags(){
