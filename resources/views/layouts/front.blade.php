@@ -26,6 +26,7 @@
         <img class="col-md-10" src="{{asset('img/front/blilgilm-logo.png')}}" alt="logo">
     </a>
 </nav>
+
 <!-- navbar navbar navbar-expand-sm sticky-top mb-5 -->
 <nav class="navbar navbar navbar-expand-lg sticky-top mb-5">
     <section class="container">
@@ -40,26 +41,26 @@
                 <li class="nav-item d-flex align-items-center">
                     <div class="d-flex">
                         <div class="dropdown mr-1">
-                            <a href="#categories" class="nav-link" class=" dropdown-toggle" id="dropdownMenuOffset"
+                            <a href="#categories" class="nav-link dropdown-toggle" id="dropdownMenuOffset"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                data-offset="10,20">categories <i class="fas fa-chevron-down"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                                 @foreach($categories as $category)
-                                    <a class="dropdown-item ml-0" href="{{ route('front.category',['id' =>$category->id])}}">{{$category->name}}</a>
+                                    <a class="dropdown-item ml-0" href="{{ route('front.category', $category->name)}}">{{$category->name}}</a>
                                 @endforeach
                             </div>
                         </div>
                     </div>
                 </li>
                 <li class="nav-item">
-{{--                    <a href="{{route('front.news')}}" class="nav-link">News</a>--}}
+                    <a href="{{route('front.category', 'World')}}" class="nav-link"> World</a>
                 </li>
                 <li class="nav-item">
-{{--                    <a href="{{route('front.articles')}}" class="nav-link"> Articles</a>--}}
+                    <a href="{{route('front.articles')}}" class="nav-link"> Blog</a>
                 </li>
                 <li class="nav-item">
-                    <a href="contact.html" class="nav-link"> contact</a>
+                    <a href="{{ route('front.contact') }}" class="nav-link"> contact</a>
                 </li>
             </ul>
             <form class="form-inline ml-auto" method='get' action='/home/search'>
@@ -69,10 +70,10 @@
         </div>
     </section>
 </nav>
+
 <div id="front-page-wrapper" class="container">
     @yield('content')
 </div>
-
 
 <!-- footer -->
 <footer>

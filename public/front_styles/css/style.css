@@ -182,35 +182,35 @@ textarea {
 }
 
 input::-webkit-input-placeholder {
-    color: #bdbdd3;
+    color: #aaa6a6;
 }
 
 input:-moz-placeholder {
-    color: #bdbdd3;
+    color: #aaa6a6;
 }
 
 input::-moz-placeholder {
-    color: #bdbdd3;
+    color: #aaa6a6;
 }
 
 input:-ms-input-placeholder {
-    color: #bdbdd3;
+    color: #aaa6a6;
 }
 
 textarea::-webkit-input-placeholder {
-    color: #bdbdd3;
+    color: #aaa6a6;
 }
 
 textarea:-moz-placeholder {
-    color: #bdbdd3;
+    color: #aaa6a6;
 }
 
 textarea::-moz-placeholder {
-    color: #bdbdd3;
+    color: #aaa6a6;
 }
 
 textarea:-ms-input-placeholder {
-    color: #bdbdd3;
+    color: #aaa6a6;
 }
 
 button {
@@ -220,7 +220,7 @@ button {
 }
 
 .container-contact100 {
-    width: 100%;
+    width: 60%;
     min-height: 100vh;
     display: -webkit-box;
     display: -webkit-flex;
@@ -232,6 +232,7 @@ button {
     align-items: center;
     padding: 15px;
     position: relative;
+    margin: auto;
     background-color: #f2f2f2;
 }
 

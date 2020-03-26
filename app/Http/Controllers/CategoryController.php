@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\News;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
 class CategoryController extends Controller
@@ -22,14 +23,15 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param $name
+     * @return View
      */
     public function getByCategory($name)
     {
-        $allNews = News::with('images')->whereHas('categories', function($q) use ($name){
-            $q->where('categories.name', $name);
-        })->get();
-        return view('front.categories.view', compact('allNews'));
+        $category = Category::whereName($name)->with('news')->get()->first();
+        $allNews = $category->news()->paginate(5);
+        $otherCategories = Category::whereNotIn('id', [$category->id])->limit(4)->get();
+        return view('front.categories.view', compact('allNews', 'otherCategories'));
     }
 
     /**

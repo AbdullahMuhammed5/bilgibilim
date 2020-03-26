@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\ContactRequest;
 use App\News;
+use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 
 class HomeController extends Controller
 {
-
     /**
      * Show the application Home Page.
      *
@@ -16,20 +17,19 @@ class HomeController extends Controller
      */
     public function front()
     {
-        $sectionOne = News::featured()->with('images')->limit(5)->get()->toArray();
-        $sliderNews = array_slice($sectionOne, 0, 3);
-        $sideBarNews = array_slice($sectionOne, 2, 2);
-        $allArticles = News::whereType('Article')->with('images')->get();
-        $categories = Category::all();
+        $sliderNews = News::with('images')
+            ->whereDate('created_at', Carbon::today())
+            ->limit(3)->get()->toArray();
+        $mostViews = News::with('images')->orderBy('views', 'desc')->limit(10)->get();
         $categoriesSection = [
-            'Politics' => News::where('category_id', Category::POLITICS)->limit(2)->get(),
+            'Politics'   => News::where('category_id', Category::POLITICS)->limit(2)->get(),
             'Technology' => News::where('category_id', Category::TECHNOLOGY)->limit(2)->get(),
-            'Sports' => News::where('category_id', Category::SPORTS)->limit(2)->get(),
-            'Science' => News::where('category_id', Category::SCIENCE)->limit(2)->get(),
+            'Sports'     => News::where('category_id', Category::SPORTS)->limit(2)->get(),
+            'Science'    => News::where('category_id', Category::SCIENCE)->limit(2)->get(),
         ];
         $worldNews = News::where('category_id', Category::WORLD)->with('images')->limit(4)->get()->toArray();
         return view('front.home', compact(
-            'sliderNews', 'sideBarNews', 'categories', 'allArticles', 'categoriesSection', 'worldNews'));
+            'sliderNews', 'mostViews', 'categoriesSection', 'worldNews'));
     }
 
     /**
@@ -40,7 +40,30 @@ class HomeController extends Controller
      */
     public function article(News $news)
     {
-        return view('front.article.show', compact('news'));
+        $news->update(['views', $news->views++]);
+        $relatedNews = News::where('category_id', $news->category_id)->limit(3)->get();
+        return view('front.articles.show', compact('news', 'relatedNews'));
+    }
+
+    /**
+     * Show Articles page.
+     *
+     * @return Renderable
+     */
+    public function articles()
+    {
+        $allNews = News::whereType('Article')->paginate(5);
+        return view('front.articles.index', compact('allNews'));
+    }
+
+    /**
+     * Show Contact Page.
+     *
+     * @return Renderable
+     */
+    public function contact()
+    {
+        return view('front.contact.index');
     }
 
     /**
@@ -55,5 +78,23 @@ class HomeController extends Controller
         }else{
             return view('auth.login');
         }
+    }
+
+    /**
+     * Contact page submit.
+     *
+     * @param ContactRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function sendContact(ContactRequest $request)
+    {
+        \DB::table('contact')->insert([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'message' => $request->input('message'),
+        ]);
+
+        return redirect()->route('front.contact');
     }
 }

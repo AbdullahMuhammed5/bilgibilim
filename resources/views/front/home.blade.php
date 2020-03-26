@@ -1,19 +1,11 @@
 @extends('layouts.front')
 
 @section('content')
-<style>
-    p{
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-    }
-</style>
 
 <section class="container">
     <!--  main section  -->
     <section class="main-sec">
-        <h2 class="title mb-5 text-uppercase font-weight-bold">bugünün seçtikleri</h2>
+        <h2 class="title mb-5 text-uppercase font-weight-bold">Today News</h2>
         <div class="row no-gutters mb-5">
             <div class="col-sm col-md-8 pl-0">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -24,15 +16,15 @@
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         @isset($sliderNews)
-                        @foreach($sliderNews as $key=>$news)
-                            <div class="carousel-item @if($news == $sliderNews[0]) active @endif">
-                                <a href="{{ route('front.article',  $news['id'])}}">
-                                    <img src="{{Storage::url($news['images'][0]['path'])}}" class="d-block w-100 mb-4">
-                                    <h3>{{$news['main_title']}}</h3>
-                                </a>
-                                <p class='block-with-text'>{{ $news['secondary_title'] }}</p>
-                            </div>
-                        @endforeach
+                            @foreach($sliderNews as $key=>$news)
+                                <div class="carousel-item @if($news == $sliderNews[0]) active @endif">
+                                    <a href="{{ route('front.article',  $news['id'])}}">
+                                        <img src="{{Storage::url($news['images'][0]['path'])}}" class="d-block w-100 mb-4">
+                                        <h3>{{$news['main_title']}}</h3>
+                                    </a>
+                                    <p class='block-with-text'>{{ $news['secondary_title'] }}</p>
+                                </div>
+                            @endforeach
                         @endisset
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
@@ -47,35 +39,25 @@
                     </a>
                 </div>
             </div>
-            <div class="offset-md-1 col-sm col-md-3 pl-0">
-                @isset($sideBarNews)
-                @foreach($sideBarNews as $news)
-                    <div class="art1 mb-4">
-                        <img src="{{Storage::url($news['images'][0]['path'])}}" alt="" class="w-100 img-fluid mb-3">
-                        <a href="{{ route('front.article', $news['id']) }}"><h5>{{$news['main_title']}}</h5></a>
-                        <p class='block-with-text'>{!!$news['secondary_title']!!}</p>
-                    </div>
-                @endforeach
-                @endisset
-            </div>
+           @include('includes.SideSection')
         </div>
     </section>
     <!-- end of main section -->
 
     <!-- en cok oku   -->
     <section class="en-cok-oku">
-        <h2 class="title mb-5 text-uppercase font-weight-bold">En çok okunanlar</h2>
+        <h2 class="title mb-5 text-uppercase font-weight-bold">Most Read</h2>
         <div class="regular">
-            @isset($allArticles)
-            @foreach($allArticles as $article)
-                <a href="{{ route('front.article', $article->id )}}">
-                    <figure>
-                        <img src="{{Storage::url($article['images'][0]->path)}}"
-                             class="w-100 img-fluid mb-3" alt="{{$article->main_title}}">
-                        <figcaption>{{$article->main_title}}</figcaption>
-                    </figure>
-                </a>
-            @endforeach
+            @isset($mostViews)
+                @foreach($mostViews as $article)
+                    <a href="{{ route('front.article', $article->id )}}">
+                        <figure>
+                            <img src="{{Storage::url($article['images'][0]->path)}}"
+                                 class="w-100 img-fluid mb-3" alt="{{$article->main_title}}">
+                            <figcaption>{{$article->main_title}}</figcaption>
+                        </figure>
+                    </a>
+                @endforeach
             @endisset
         </div>
     </section>
@@ -86,16 +68,15 @@
         <h2 class="title mb-5 text-uppercase front-weight-bold">categories</h2>
         <div class="row img-art mb-5">
             @isset($categoriesSection)
-                @foreach($categoriesSection as $key=>$category)
+                @foreach($categoriesSection as $name=>$category)
                     <div class="col-lg-3 col-sm-6">
                         <div class="img-over">
-                            <a href="Category.html">
-                                <figure class="w-100"><img src="{{asset("img/front/category-".strtolower($key).".jpg")}}" alt=""
+                            <a href="{{ route('front.category', $name) }}">
+                                <figure class="w-100"><img src="{{asset("img/front/category-".strtolower($name).".jpg")}}" alt=""
                                              class="w-100 img-fluid mb-3">
                                 </figure>
                                 <div class="overlay">
-                                    <h6 class="text-uppercase">{{$key}}</h6>
-                                    <p>lorem ipsum dolar sit</p>
+                                    <h6 class="text-uppercase">{{$name}}</h6>
                                 </div>
                             </a>
                         </div>
@@ -157,10 +138,5 @@
     </section>
     <!-- end of world section -->
 </section>
-
-
-
-
-
 
 @stop
