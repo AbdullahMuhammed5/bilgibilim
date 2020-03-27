@@ -45,18 +45,18 @@
             <div class="col-sm-5">
                 <div class="form-group">
                     <label>Category:</label>
-                    {{ Form::select('category_id', $categories, false, ['placeholder' => 'Select Category', 'class' => 'form-control']) }}
+                    {{ Form::select('category_id', $allCategories, false, ['placeholder' => 'Select Category', 'class' => 'form-control']) }}
                 </div>
             </div>
-            <div class="col-sm-5">
-                <div class="form-group">
-                    <label>Tags:</label>
-                    {!! Form::select('tags[]', $tags, null, ["data-placeholder"=>"Select tags ...",
-                    'multiple', "class"=>"chosen-select", 'id' => 'get-tags']) !!}
-                    <span class="invalid-feedback" id="maxValueFeedback"
-                          style="display: none">You just hit the maximum length of tags.</span>
-                </div>
-            </div>
+{{--            <div class="col-sm-5">--}}
+{{--                <div class="form-group">--}}
+{{--                    <label>Tags:</label>--}}
+{{--                    {!! Form::select('tags[]', $tags, null, ["data-placeholder"=>"Select tags ...",--}}
+{{--                    'multiple', "class"=>"chosen-select", 'id' => 'get-tags']) !!}--}}
+{{--                    <span class="invalid-feedback" id="maxValueFeedback"--}}
+{{--                          style="display: none">You just hit the maximum length of tags.</span>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
         <div class="col-sm-12">
             <label for="document">Documents</label>

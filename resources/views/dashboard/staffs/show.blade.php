@@ -30,14 +30,14 @@
         <tbody>
             <tr class="gradeX">
                 <td>{{ $staff->id }}</td>
-                <td><img src="{{ Storage::url("images/$staff->image") }}" style='width: 50px'></td>
+                <td><img src="{{ $staff->image ? Storage::url($staff->image['path']) : 'https://via.placeholder.com/150?Text=avatar' }}" style='width: 50px'></td>
                 <td>{{ ucfirst($staff->user->first_name).' '. ucfirst($staff->user->last_name)}}</td>
                 <td>{{ $staff->user->email }}</td>
                 <td>{{ $staff->user->phone }}</td>
-                <td>{{ $staff->job->name }}</td>
+                <td>{{ $staff->job ? $staff->job->name : null }}</td>
                 <td>{{ $staff->user->roles[0]->name }}</td>
-                <td>{{ $staff->city->name }}</td>
-                <td>{{ $staff->country->name }}</td>
+                <td>{{ $staff->city ?  $staff->city ->name :null }}</td>
+                <td>{{ $staff->country? $staff->country->name: null }}</td>
                 <td>{{ $staff->gender }}</td>
                 @canany(['staff-edit', 'staff-delete'])
                     <td>

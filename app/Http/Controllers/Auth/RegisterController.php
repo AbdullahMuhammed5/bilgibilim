@@ -45,12 +45,11 @@ class RegisterController extends Controller
     /**
      * Show the application registration form.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showRegistrationForm()
     {
-        $roles = Role::pluck('name', 'name')->all();
-        return view('auth.register', compact('roles'));
+        return view('auth.register');
     }
 
     /**
@@ -78,8 +77,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create(array_merge($data, ['password' => Hash::make($data['password'])]));
-        $user->assignRole([0 => "staff"]);
+//        dd($data);
+        $user = User::create($data);
+        $user->assignRole([0 => "Staff"]);
+        $user->staff()->create();
         return $user;
     }
 }

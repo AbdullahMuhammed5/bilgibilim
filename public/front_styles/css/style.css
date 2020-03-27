@@ -4,7 +4,6 @@ html {
     box-sizing: border-box;
     font-size: 16px;
 }
-
 html p ,figcaption{
     font-family: "raleway", serif;
     font-size: 0.9rem;
@@ -18,6 +17,12 @@ h1, h3, h5, .card {
     cursor: pointer;
 }
 
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
 .main-sec, .categories, .world, .en-cok-oku{
     margin-bottom: 3rem;
 }

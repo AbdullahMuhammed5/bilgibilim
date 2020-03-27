@@ -42,19 +42,16 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Country:</label>
-                    {{ Form::select('category_id', $categories, null, ['placeholder' => 'Select Category', 'class' => 'form-control']) }}
+                    {{ Form::select('category_id', $allCategories, null, ['placeholder' => 'Select Category', 'class' => 'form-control']) }}
                 </div>
             </div>
-{{--            <div class="col-sm-6">--}}
+{{--            <div class="col-sm-5">--}}
 {{--                <div class="form-group">--}}
-{{--                    <label>Related News:</label>--}}
-
-{{--                    {!! Form::select('related[]', $allNews, null, ["data-placeholder"=>"Select related Users ...",--}}
-{{--                    'multiple', "class"=>"chosen-select", 'id' => 'get-related']) !!}--}}
-
+{{--                    <label>Tags:</label>--}}
+{{--                    {!! Form::select('tags[]', $tags, null, ["data-placeholder"=>"Select tags ...",--}}
+{{--                    'multiple', "class"=>"chosen-select", 'id' => 'get-tags']) !!}--}}
 {{--                    <span class="invalid-feedback" id="maxValueFeedback"--}}
-{{--                          style="display: @if(count($allNews) > 10) block @else none @endif">--}}
-{{--                        You just hit the maximum length of related news.</span>--}}
+{{--                          style="display: none">You just hit the maximum length of tags.</span>--}}
 {{--                </div>--}}
 {{--            </div>--}}
         </div>

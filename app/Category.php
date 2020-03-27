@@ -16,7 +16,6 @@ class Category extends Model
     const MEDIA = 6;
     const WORLD = 7;
 
-
     public function news(){
         return $this->hasMany(News::class);
     }

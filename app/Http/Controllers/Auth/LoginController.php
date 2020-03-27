@@ -31,7 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/dashboard';
     /**
      * Create a new controller instance.
      *
@@ -95,12 +95,12 @@ class LoginController extends Controller
         );
     }
 
-    protected function redirectPath()
-    {
-        if (auth()->user()->hasRole('Admin')) {
-            return '/dashboard';
-        }else
-            return '/';
-    }
+//    protected function redirectPath()
+//    {
+//        if (auth()->user()->hasRole('Admin')) {
+//            return '/dashboard';
+//        }else
+//            return '/';
+//    }
 
 }

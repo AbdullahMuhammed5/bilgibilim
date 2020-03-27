@@ -102,14 +102,14 @@
             <section class="insta offset-lg-1 col-sm col-md-3 col-lg-3">
                 <h4 class="text-uppercase mb-4">instagram feed</h4>
                 <figure>
-                    <img src="img/i1.jpg" class="mb-1">
-                    <img src="img/i2.jpg" class="mb-1">
-                    <img src="img/i3.jpg" class="mb-1">
-                    <img src=" img/i4.jpg" class="mb-1">
-                    <img src=" img/i5.jpg">
-                    <img src=" img/i6.jpg">
-                    <img src=" img/i7.jpg">
-                    <img src=" img/i8.jpg">
+                    <img src="{{ asset('img/front/instagram/i1.jpg') }}" class="mb-1">
+                    <img src="{{ asset('img/front/instagram/i2.jpg') }}" class="mb-1">
+                    <img src="{{ asset('img/front/instagram/i3.jpg') }}" class="mb-1">
+                    <img src="{{ asset('img/front/instagram/i4.jpg') }}" class="mb-1">
+                    <img src="{{ asset('img/front/instagram/i5.jpg') }}">
+                    <img src="{{ asset('img/front/instagram/i6.jpg') }}">
+                    <img src="{{ asset('img/front/instagram/i7.jpg') }}">
+                    <img src="{{ asset('img/front/instagram/i8.jpg') }}">
                 </figure>
             </section>
         </div>

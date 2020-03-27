@@ -40,8 +40,8 @@ class CreateStaffsTable extends Migration
                 ->on('cities')
                 ->onDelete('cascade');
 
-            $table->string('gender');
-            $table->boolean('is_active');
+            $table->string('gender')->nullable();
+            $table->boolean('is_active')->default(0);
 
             $table->timestamps();
             $table->softDeletes();

@@ -9,23 +9,22 @@
         <div class="row no-gutters mb-5">
             <div class="col-sm col-md-8 pl-0">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    @if(count($sliderNews) > 0)
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleControls" data-slide-to="1"></li>
                         <li data-target="#carouselExampleControls" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner" role="listbox">
-                        @isset($sliderNews)
-                            @foreach($sliderNews as $key=>$news)
-                                <div class="carousel-item @if($news == $sliderNews[0]) active @endif">
-                                    <a href="{{ route('front.article',  $news['id'])}}">
-                                        <img src="{{Storage::url($news['images'][0]['path'])}}" class="d-block w-100 mb-4">
-                                        <h3>{{$news['main_title']}}</h3>
-                                    </a>
-                                    <p class='block-with-text'>{{ $news['secondary_title'] }}</p>
-                                </div>
-                            @endforeach
-                        @endisset
+                        @foreach($sliderNews as $key=>$news)
+                            <div class="carousel-item @if($news == $sliderNews[0]) active @endif">
+                                <a href="{{ route('front.article',  $news['id'])}}">
+                                    <img src="{{Storage::url($news['images'][0]['path'])}}" class="d-block w-100 mb-4">
+                                    <h3>{{$news['main_title']}}</h3>
+                                </a>
+                                <p class='block-with-text'>{{ $news['secondary_title'] }}</p>
+                            </div>
+                        @endforeach
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
                        data-slide="prev">
@@ -37,6 +36,7 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
+                    @endif
                 </div>
             </div>
            @include('includes.SideSection')
@@ -89,7 +89,9 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body ">
-                                        <p class="mb-0">{{$news->main_title}}</p>
+                                        <a href="{{ route('front.article', $news->id) }}">
+                                            <p class="mb-0">{{$news->main_title}}</p>
+                                        </a>
                                         <p class="card-text"><small class="text-muted">{{ $news->created_at->diffForHumans() }}</small></p>
                                     </div>
                                 </div>
@@ -111,9 +113,11 @@
             @isset($worldNews)
                 @isset($worldNews[0])
                 <div class="col-sm col-md-6">
+                    <a href="{{ route('front.article', $worldNews[0]['id']) }}">
                     <img src="{{Storage::url($worldNews[0]['images'][0]['path'])}}" alt="" class="w-100 img-fluid mb-3">
-                    <h5 class="card-title">{{$worldNews[0]['main_title']}}</h5>
+                        <h5 class="card-title">{{$worldNews[0]['main_title']}}</h5>
                     <p class="card-text">{{$worldNews[0]['secondary_title']}}</p>
+                    </a>
                 </div>
                 @endisset
                 <div class="col-sm col-md-6">
@@ -125,7 +129,9 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body pt-0">
-                                    <h5 class="card-title">{{$news['main_title']}}</h5>
+                                    <a href="{{ route('front.article', $news['id']) }}">
+                                        <h5 class="card-title">{{$news['main_title']}}</h5>
+                                    </a>
                                     <p class="card-text">{{$news['secondary_title']}}</p>
                                 </div>
                             </div>

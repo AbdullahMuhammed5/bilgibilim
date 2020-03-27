@@ -135,6 +135,18 @@
                         </ul>
                     </li>
                 @endcan
+                @can('category-list')
+                    <li class="{{ Request::is('categories', 'categories/*') ? 'active' : '' }}">
+                        <a href="{{ route('jobs.index') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">categories</span>
+                            <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="{{ route('categories.index') }}">All</a></li>
+                            @can('category-create')
+                                <li><a href="{{ route('categories.create') }}">Add category</a></li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcan
             </ul>
         </div>
     </nav>

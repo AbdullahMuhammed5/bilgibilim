@@ -27,6 +27,8 @@ class SuperAdminSeeder extends Seeder
         $role = Role::firstOrCreate(['name' => 'Admin', 'description' => 'Administrator']);
 
         $user->assignRole([$role->id]);
+
+        Role::firstOrCreate(['name' => 'Staff', 'description' => 'Staff member']);
     }
 
 }

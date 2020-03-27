@@ -25,14 +25,14 @@ class Staff extends Model{
         });
     }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'user_id', 'job_id', 'country_id', 'city_id', 'gender', 'is_active'
-    ];
+//    /**
+//     * The attributes that are mass assignable.
+//     *
+//     * @var array
+//     */
+//    protected $fillable = [
+//        'user_id', 'job_id', 'country_id', 'city_id', 'gender', 'is_active'
+//    ];
 
     public function user(){
         return $this->belongsTo(User::class);

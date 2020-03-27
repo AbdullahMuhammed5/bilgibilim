@@ -59,9 +59,9 @@ class NewsController extends Controller
     public function create()
     {
         $types = News::$types;
-        $categories = Category::pluck('name', 'id')->all();
-        $tags = Tag::pluck('name', 'name')->all();
-        return view('dashboard.news.create', compact('types', 'categories', 'tags'));
+        $allCategories = Category::pluck('name', 'id')->all();
+//        $tags = Tag::pluck('name', 'name')->all();
+        return view('dashboard.news.create', compact('types', 'allCategories'));
     }
 
     /**
@@ -77,11 +77,11 @@ class NewsController extends Controller
         if ($images = $request['images']){
             $inserted->images()->createMany($this->getInputs($images, 'path'));
         }
-        foreach ($request['tags'] as $key=>$tag){
-            $newTag = Tag::updateOrCreate(['name' => $tag]);
-            $tags[] = $newTag->id;
-        }
-        $inserted->tags()->sync($tags);
+//        foreach ($request['tags'] as $key=>$tag){
+//            $newTag = Tag::updateOrCreate(['name' => $tag]);
+//            $tags[] = $newTag->id;
+//        }
+//        $inserted->tags()->sync($tags);
         return redirect()->route('news.index')
             ->with('success', 'news created successfully');
     }
@@ -105,9 +105,10 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        $categories = Category::pluck('name', 'id')->all();
+        $allCategories = Category::pluck('name', 'id')->all();
+//        $tags = Tag::pluck('name', 'name')->all();
         $authors = app('App\Http\Controllers\StaffController')->getAuthorsByJob($news->type);
-        return view('dashboard.news.edit', compact('news', 'authors', 'categories'));
+        return view('dashboard.news.edit', compact('news', 'authors', 'allCategories'));
     }
 
     /**
@@ -124,7 +125,7 @@ class NewsController extends Controller
         if ($images = $request['images']){
             $news->images()->createMany($this->getInputs($images, 'path'));
         }
-        $news->tags()->sync($request['tags']);
+//        $news->tags()->sync($request['tags']);
         return redirect()->route('news.index')
             ->with('success', 'news updated successfully');
     }

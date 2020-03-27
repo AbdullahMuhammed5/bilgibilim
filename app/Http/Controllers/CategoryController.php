@@ -3,21 +3,101 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\CategoryRequest;
 use App\News;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
+use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Category::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
+     * @throws \Exception
      */
-    public function index()
+    public function index(Request $request)
     {
+        $columns = json_encode($this->getColumns());
+        if ($request->ajax()) {
+            $data = Category::latest();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', 'dashboard.categories.ActionButtons')
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('dashboard.categories.index', compact('columns'));
+    }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Factory|View
+     */
+    public function create()
+    {
+        return view('dashboard.categories.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(CategoryRequest $request)
+    {
+        Category::create($request->all());
+        return redirect()->route('categories.index')
+            ->with('success', 'Category created successfully');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Category  $category
+     * @return Factory|View
+     */
+    public function edit(Category $category)
+    {
+        return view('dashboard.categories.edit', compact('category'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param  \App\Category  $category
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(CategoryRequest $request, Category $category)
+    {
+        $category->update($request->all());
+        return redirect()->route('categories.index')
+            ->with('success', 'Category updated successfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \App\Category $category
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        return redirect()->route('categories.index')
+            ->with('error', 'Category deleted successfully');
     }
 
     /**
@@ -34,69 +114,13 @@ class CategoryController extends Controller
         return view('front.categories.view', compact('allNews', 'otherCategories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getColumns()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Category $category)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Category $category)
-    {
-        //
+        return [
+            ['data' => 'id', 'name' => 'id'],
+            ['data'=> 'name', 'name'=> 'name'],
+            ['data'=> 'description', 'name'=> 'description'],
+            ['data'=> 'action', 'name'=> 'action', 'orderable'=> false, 'searchable'=> false],
+        ];
     }
 }

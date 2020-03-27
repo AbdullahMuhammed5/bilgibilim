@@ -180,10 +180,10 @@ class StaffController extends Controller
             ['data' => 'user.first_name', 'name' => 'user.first_name'],
             ['data' => 'user.email', 'name' => 'user.email'],
             ['data' => 'user.phone', 'name' => 'user.phone', 'defaultContent' => ""],
-            ['data' => 'job.name', 'name' => 'job.name'],
+            ['data' => 'job.name', 'name' => 'job.name', 'defaultContent' => ""],
             ['data' => 'user.roles[0].name', 'name' => 'user.roles.name'],
             ['data' => 'city.name', 'name' => 'city_id', 'defaultContent' => ""],
-            ['data' => 'country.name', 'name' => 'country_id'],
+            ['data' => 'country.name', 'name' => 'country_id', 'defaultContent' => ""],
             ['data' => 'gender', 'name' => 'gender', 'defaultContent' => ""],
             ['data' => 'is_active', 'name' => 'is_active'],
             ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]
