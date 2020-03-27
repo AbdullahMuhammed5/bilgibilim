@@ -89,7 +89,9 @@ class StaffController extends Controller
 
         // prepare image path to be stored in database as path
         // if has file image then upload - else assign to default image
-        $imgPath = $request->hasFile('file') ?  $this->upload($request['file']) :  "default-user.png";
+        if ($request->hasFile('file')){
+            $imgPath = $this->upload($request['file']);
+        }
 
         $inputs['password'] = Hash::make('secret'); // set initial password
 
@@ -100,7 +102,7 @@ class StaffController extends Controller
         $staff->update(['user_id' => $user->id]);
         $user->assignRole('staff');
 
-        $this->broker()->sendResetLink(['email' => $user->email]);
+//        $this->broker()->sendResetLink(['email' => $user->email]);
         return redirect()->route('staffs.index')
             ->with('success', 'staff created successfully');
     }
