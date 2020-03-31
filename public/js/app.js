@@ -6,42 +6,9 @@ $(function () {
         radioClass: 'iradio_square-green',
     });
 
-    // Ckeditor
-    if ($('#editor').length){
-        CKEDITOR.replace('editor');
-    }
-
-    // handle maximum value exceeded
-    $('.chosen-select').change(()=>{
-        if($(".search-choice").length >= 10) {
-            $('span#maxValueFeedback').css('display', 'block');
-        }
-        if ($(".search-choice").length < 11){
-            $('span#maxValueFeedback').css('display', 'none');
-        }
-    });
-    var specialCharacters = /^![^a-zA-Z0-9]+$/;
     // file chosen select
     $(".chosen-select").select2({
         tags: true,
-        // createTag: function (params) {
-        //     // Don't offset to create a tag if there is no @ symbol
-        //     if (!specialCharacters.test(params.term)) {
-        //         // Return null to disable tag creation
-        //         return null;
-        //     }
-        //
-        //     return {
-        //         id: params.term,
-        //         text: params.term,
-        //         newTag: true
-        //     }
-        // },
-        // insertTag: function (data, tag) {
-        //     // Insert the tag at the end of the results
-        //     data.push(tag);
-        // },
-        // minimumInputLength: 1,
         max_selected_options: 5
     });
 
@@ -88,32 +55,6 @@ $(function () {
         }
     });
 
-    // handle ajax get request - get data for select tag
-    // $.each($('.get-data-ajax-request'), function() {
-    //     $(this).change(function () {
-    //         let id = $(this).attr('id') == 'country' ? '#city' : '#author';
-    //         let route = $(this).attr('id') == 'country' ? 'getCities' : 'getAuthorsByJob';
-    //         // console.log(id)
-    //         let param = $(this).val();
-    //         if (param) {
-    //             $.ajax({
-    //                 type: "get",
-    //                 url: `${window.location.origin}/${route}/${param}`,
-    //                 success: function (res) {
-    //                     if (res) {
-    //                         $('#city-wrapper').css('display', 'block')
-    //                         $(`${id}`).empty();
-    //                         $(`${id}`).append('<option value="">Select City</option>');
-    //                         $.each(res, function (key, value) {
-    //                             $(`${id}`).append('<option value="' + key + '">' + value + '</option>');
-    //                         });
-    //                     }
-    //                 }
-    //             });
-    //         }
-    //     });
-    // });
-
     // handle upload image request
     $.each($('.upload-files'), function(){
         $(this).change(()=>{
@@ -138,20 +79,6 @@ $(function () {
                 error: (err) => console.log(err)
             })
         });
-    });
-
-    $('input[name="uploadMethod"]').on('ifClicked', function(event){
-        let fromComputer = $('#from-computer');
-        let youtubeInput = $('#youtube-url-input')
-        let id = event.target.id;
-
-        if (id === 'computer'){
-            $(fromComputer).show();
-            $(youtubeInput).hide();
-        } else if (id === 'youtube'){
-            $(fromComputer).hide();
-            $(youtubeInput).show();
-        }
     });
 
     Dropzone.autoDiscover = false;

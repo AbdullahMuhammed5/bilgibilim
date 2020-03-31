@@ -63,7 +63,7 @@
                     <a href="{{ route('front.contact') }}" class="nav-link"> contact</a>
                 </li>
             </ul>
-            <form class="form-inline ml-auto" method='get' action='/home/search'>
+            <form class="form-inline ml-auto" method='GET' action='{{ route('front.search') }}'>
                 <input class="form-control " name='keyword' type="text" placeholder="Search" aria-label="Search" required>
                 <button class = "fa fa-search" style="color:white" type='submit'></button>
             </form>

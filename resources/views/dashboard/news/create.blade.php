@@ -78,6 +78,15 @@
 @push('ckeditor')
     <!-- ckeditor -->
     <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+    <script>
+        // Ckeditor
+        if ($('#editor').length){
+            CKEDITOR.replace('editor', {
+                filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+                filebrowserUploadMethod: 'form'
+            });
+        }
+    </script>
 @endpush
 
 @push('icheck-css')

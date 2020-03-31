@@ -36,7 +36,7 @@ class NewsController extends Controller
     {
         $columns = json_encode($this->getColumns());
         if ($request->ajax()) {
-            $data = News::latest()->with('staff.user');
+            $data = News::latest()->with('staff.user', 'category');
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', 'dashboard.news.ActionButtons')
@@ -149,10 +149,12 @@ class NewsController extends Controller
     {
         return [
             ['data' => 'id', 'name' => 'id'],
-            ['data' => 'staff.user.first_name', 'name' => 'staff.user.first_name'],
+            ['data' => 'staff.user.first_name', 'name' => 'staff.user.first_name', 'defaultContent' => ""],
             ['data' => 'main_title', 'name' => 'main_title'],
             ['data' => 'secondary_title', 'name' => 'secondary_title'],
             ['data' => 'type', 'name' => 'type'],
+            ['data' => 'category.name', 'name' => 'category.name', 'filter_index'=> 'category_id'],
+            ['data' => 'views', 'name' => 'views'],
             ['data' => 'published', 'name' => 'published'],
             ['data' => 'featured', 'name' => 'featured'],
             ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]

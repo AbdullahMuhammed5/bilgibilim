@@ -26,26 +26,16 @@ Route::get('/article/{news}', 'HomeController@article')->name('front.article');
 Route::get('/news', 'HomeController@news')->name('front.news');
 Route::get('/contact', 'HomeController@contact')->name('front.contact');
 Route::post('/sendContact', 'HomeController@sendContact')->name('front.sendContact');
-
-
-// Route group
-Route::prefix('jobs')->group(function(){
-    Route::get('', 'JobController@index')->name('jobs.index');
-    Route::get('create', 'JobController@create')->name('jobs.create');
-    Route::get('{job}', 'JobController@show')->name('jobs.show');
-    Route::post('', 'JobController@store')->name('jobs.store');
-    Route::get('{job}/edit', 'JobController@edit')->middleware('WriterAndReporter')->name('jobs.edit');
-    Route::patch('{job}', 'JobController@update')->name('jobs.update');
-    Route::delete('{job}', 'JobController@destroy')->middleware('WriterAndReporter')->name('jobs.destroy');
-});
+Route::get('/search', 'HomeController@search')->name('front.search');
 
 // resources
 Route::resource('cities', 'CityController');
 Route::resource('roles', 'RoleController');
 Route::resource('staffs', 'StaffController');
 Route::resource('news', 'NewsController');
+Route::resource('jobs', 'JobController');
 Route::resource('images', 'ImageController');
-//Route::prefix('dash')
+
 Route::resource('categories', 'CategoryController')->except('show');
 Route::get('/categories/{name}', 'CategoryController@getByCategory')->name('front.category');
 
@@ -57,6 +47,7 @@ Route::put('toggleFeatured/{news}', 'NewsController@toggleFeatured')->name('togg
 
 // File uploads APIs
 Route::prefix('files')->group(function() {
+    Route::post('ckEditorUpload', 'FileUploadController@ckEditorUpload')->name('upload');
     Route::post('store', 'FileUploadController@fileStore');
     Route::post('delete', 'FileUploadController@fileDestroy');
     Route::get('getFiles/{id}/{type}', 'FileUploadController@getFiles')->name('files.getFiles');

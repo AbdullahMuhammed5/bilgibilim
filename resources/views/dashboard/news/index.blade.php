@@ -10,6 +10,8 @@
             <th>Main Title</th>
             <th>Secondary Title</th>
             <th>Type</th>
+            <th>Category</th>
+            <th>Views</th>
             <th>Published</th>
             <th>Featured</th>
             @canany(['news-edit', 'news-delete', 'news-list'])

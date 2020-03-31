@@ -6,7 +6,7 @@
             <div class="col-sm col-md-8">
                 <img src="{{ Storage::url($news['images'][0]->path) }}" alt="" class="w-100 img-fluid mb-4">
                 <h3 class="title">{{ $news->main_title }}</h3>
-                <p>{{ strip_tags($news->content) }}</p>
+                <p>{!! $news->content !!} </p>
             </div>
             <div class="col-sm col-md-4">
                 <h5 class="title font-weight-bold text-uppercase mb-4">you may like</h5>
