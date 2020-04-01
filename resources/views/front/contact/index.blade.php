@@ -4,6 +4,13 @@
 
     <div class="container-contact100 mb-5">
         <div class="wrap-contact100">
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger">
+                        {{ $error }}
+                    </div>
+                @endforeach
+            @endif
             <form method="POST" class="contact100-form validate-form" action="{{ route('front.sendContact') }}">
                 {{ csrf_field() }}
                 <h2 class="title mb-5 text-uppercase font-weight-bold">
@@ -29,14 +36,6 @@
                     <textarea class="input100" name="message" placeholder="Your Message" value="{{ old('message') }}"></textarea>
                     <span class="focus-input100"></span>
                 </div>
-
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger">
-                            {{ $error }}
-                        </div>
-                    @endforeach
-                @endif
 
                 <div class="container-contact100-form-btn">
                     <button class="contact100-form-btn" type="submit">

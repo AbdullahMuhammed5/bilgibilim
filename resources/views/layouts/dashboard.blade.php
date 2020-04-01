@@ -15,14 +15,9 @@
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     @stack('datatable-css')
     @stack('icheck-css')
-    <link href="{{ asset('css/plugins/dropzone/basic.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/plugins/dropzone/dropzone.css') }}" rel="stylesheet">
     <link href="{{ asset('css/plugins/jasny/jasny-bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('css/toggleButton.css')}}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/plugins/chosen/bootstrap-chosen.css')}}" rel="stylesheet">
-    <link href="{{ asset('css/plugins/select2/select2.min.css')}}" rel="stylesheet">
     <link href="{{ asset('css/style.css')}}" rel="stylesheet">
     <link href="{{ asset('css/custom.css')}}" rel="stylesheet">
 
@@ -46,27 +41,13 @@
                             @endif
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs">
+                            <span class="clear">
+                                <span class="block m-t-xs">
                                     <strong class="font-bold">
                                         {{ ucfirst(auth()->user()->first_name) . ' ' . ucfirst(auth()->user()->last_name)}}
                                     </strong>
-                             </span>
-                                <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="{{ asset('profile.html') }}">Profile</a></li>
-                            <li><a href="{{ asset('contacts.html') }}">Contacts</a></li>
-                            <li><a href="{{ asset('mailbox.html') }}">Mailbox</a></li>
-                            <li class="divider"></li>
-                            <li><a class="fa fa-sign-out dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                   document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </li>
-                        </ul>
+                                </span>
+                            </span>
                     </div>
                     <div class="logo-element">
                         IN+
@@ -191,7 +172,7 @@
                         ?>
                         @foreach(Request::segments() as $segment)
                             @if (!Request::is('staffs/*') && !Request::is('categories/*')
-                                && !Request::is('news/*')))
+                                && !Request::is('news/*'))
                             <?php $segments .= '/'.$segment;?>
                             <li>
                                 @if(is_numeric($segment))
@@ -241,14 +222,10 @@
 </div>
 
 <div class="footer">
-    <div class="pull-right">
-        10GB of <strong>250GB</strong> Free.
-    </div>
     <div>
-        <strong>Copyright</strong> Example Company &copy; 2014-2017
+        <strong>Copyright</strong>&copy;2020
     </div>
 </div>
-
 
 <!-- Mainly scripts -->
 <script src="{{asset('js/jquery-3.1.1.min.js')}}"></script>
@@ -265,35 +242,15 @@
 <!-- jQuery UI -->
 <script src="{{asset('js/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
-<!-- Jvectormap -->
-<script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>
-<script src="{{asset('js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
-
 <!-- iCheck -->
 <script src="{{ asset('js/plugins/iCheck/icheck.min.js') }}"></script>
 
 <script src="{{ asset('js/plugins/jasny/jasny-bootstrap.min.js') }}"></script>
-
-<!-- Select2 -->
-<script src="{{ asset('js/plugins/select2/select2.full.min.js') }}"></script>
-
-<!-- Data picker -->
-{{--<script src="{{asset('js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>--}}
-
-<!-- Date range use moment.js same as full calendar plugin -->
-<script src="{{ asset('js/plugins/fullcalendar/moment.min.js') }}"></script>
-
-<!-- Date time picker -->
-<script src="{{ asset('js/bootstrap-datetimepicker.min.js') }}"></script>
-
-<!-- DROPZONE -->
-<script src="{{ asset('js/plugins/dropzone/dropzone.js') }}"></script>
 
 <!-- Custom Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 <!-- Page-Level Scripts -->
 @stack('datatable')
 @stack('ckeditor')
-@stack('JSValidatorScript')
 </body>
 </html>

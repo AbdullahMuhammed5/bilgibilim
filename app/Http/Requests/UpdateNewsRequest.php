@@ -6,7 +6,7 @@ use App\News;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class NewsRequest extends FormRequest
+class UpdateNewsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,7 +33,7 @@ class NewsRequest extends FormRequest
             'content'=> 'required|string',
             'published' => 'required|int',
             'category_id' => 'required|int',
-            'cover' => 'image|mimes:jpeg,jpg,png|required',
+            'cover' => 'image|mimes:jpeg,jpg,png',
         ];
     }
 }

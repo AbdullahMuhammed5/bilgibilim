@@ -8,7 +8,7 @@
                 <div class="col-sm col-md-8 pl-0 mb-5">
                     @foreach($result as $news)
                         <section class="category-news mb-5">
-                            <img src="{{count($news->images) > 0 ? Storage::url($news->images[0]->path) : asset('img/default-image.png')}}" alt="" class="w-100 img-fluid mb-4">
+                            <img src="{{ $news->cover ? Storage::url($news->cover->path) : asset('img/default-image.png')}}" alt="" class="w-100 img-fluid mb-4">
                             <a href="{{ route('front.article', $news['id']) }}">
                                 <h3>{{$news['main_title']}}</h3>
                             </a>

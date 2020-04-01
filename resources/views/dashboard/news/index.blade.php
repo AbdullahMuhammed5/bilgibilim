@@ -8,7 +8,6 @@
             <th>ID</th>
             <th>Author</th>
             <th>Main Title</th>
-            <th>Secondary Title</th>
             <th>Type</th>
             <th>Category</th>
             <th>Views</th>

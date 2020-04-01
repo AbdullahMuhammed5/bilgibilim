@@ -6,12 +6,6 @@ $(function () {
         radioClass: 'iradio_square-green',
     });
 
-    // file chosen select
-    $(".chosen-select").select2({
-        tags: true,
-        max_selected_options: 5
-    });
-
     // handle request for authors based on post type
     $('#news-type').change(function(){
         let type = $(this).val();
@@ -79,11 +73,6 @@ $(function () {
                 error: (err) => console.log(err)
             })
         });
-    });
-
-    Dropzone.autoDiscover = false;
-    $('.datetimepicker').datetimepicker({
-        format: 'YYYY-MM-DD HH:mm:ss',
     });
 
 });

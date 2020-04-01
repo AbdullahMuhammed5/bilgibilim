@@ -22,7 +22,7 @@
 </head>
 <body id="page-top" class="landing-page no-skin-config">
 <nav class="navbar navbar-expand-lg navbar-dark primary-color">
-    <a href="index.html" class="navbar-brand logo order-1 mx-auto">
+    <a href="{{route('home')}}" class="navbar-brand logo order-1 mx-auto">
         <img class="col-md-10" src="{{asset('img/front/blilgilm-logo.png')}}" alt="logo">
     </a>
 </nav>
@@ -115,7 +115,7 @@
         </div>
     </section>
     <section class="last text-center">
-        <p>Copyright &copy; All Right Reserved 2019
+        <p>Copyright &copy; All Right Reserved 2020
         </p>
     </section>
 

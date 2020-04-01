@@ -12,9 +12,6 @@
             <th>Phone</th>
             <th>job</th>
             <th>Role</th>
-            <th>City</th>
-            <th>Country</th>
-            <th>Gender</th>
             <th>Status</th>
             @canany(['staff-edit', 'staff-delete', 'staff-list'])
             <th>Options</th>

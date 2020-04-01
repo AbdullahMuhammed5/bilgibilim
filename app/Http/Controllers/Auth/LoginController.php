@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Cache;
@@ -95,12 +97,19 @@ class LoginController extends Controller
         );
     }
 
-//    protected function redirectPath()
-//    {
-//        if (auth()->user()->hasRole('Admin')) {
-//            return '/dashboard';
-//        }else
-//            return '/';
-//    }
+    /**
+     * Log the user out of the application.
+     *
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect('/dashboard');
+    }
 
 }

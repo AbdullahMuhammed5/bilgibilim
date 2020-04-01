@@ -1,4 +1,4 @@
 <td>
-    <img src="{{ $image ? Storage::url($image['path']) : 'https://via.placeholder.com/150?Text=avatar' }}"
+    <img src="{{ $image ? Storage::url($image['path']) : asset('img/avatardefault.png') }}"
          alt="user image" style="width: 40px;" class="img-circle">
 </td>

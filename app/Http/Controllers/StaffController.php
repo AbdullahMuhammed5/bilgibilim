@@ -86,23 +86,19 @@ class StaffController extends Controller
     public function store(StaffRequest $request)
     {
         $inputs = $request->all();
-
-        // prepare image path to be stored in database as path
-        // if has file image then upload - else assign to default image
-        if ($request->hasFile('file')){
-            $imgPath = $this->upload($request['file']);
-        }
-
-        $inputs['password'] = Hash::make('secret'); // set initial password
+        $inputs['password'] = Hash::make('password'); // set initial password
 
         $staff = Staff::create($inputs);
-        $staff->image()->create(['path' => $imgPath]);
+
+        if ($request->hasFile('file')){
+            $imgPath = $this->upload($request['file']);
+            $staff->image()->create(['path' => $imgPath]);
+        }
 
         $user = $staff->user()->create($inputs);
         $staff->update(['user_id' => $user->id]);
         $user->assignRole('staff');
 
-//        $this->broker()->sendResetLink(['email' => $user->email]);
         return redirect()->route('staffs.index')
             ->with('success', 'staff created successfully');
     }
@@ -184,9 +180,6 @@ class StaffController extends Controller
             ['data' => 'user.phone', 'name' => 'user.phone', 'defaultContent' => ""],
             ['data' => 'job.name', 'name' => 'job.name', 'defaultContent' => ""],
             ['data' => 'user.roles[0].name', 'name' => 'user.roles.name'],
-            ['data' => 'city.name', 'name' => 'city_id', 'defaultContent' => ""],
-            ['data' => 'country.name', 'name' => 'country_id', 'defaultContent' => ""],
-            ['data' => 'gender', 'name' => 'gender', 'defaultContent' => ""],
             ['data' => 'is_active', 'name' => 'is_active'],
             ['data' => 'action', 'name' => 'action', 'orderable' => false, 'searchable' => false]
         ];

@@ -1,6 +1,6 @@
 <td>
     <div class="toggle-btn @if($row->is_active) active @endif">
-        <input type="checkbox" @if($row->is_active) checked @endif class="cb-value" id="{{$row->user->zfirst_name.$row->id}}"/>
+        <input type="checkbox" @if($row->is_active) checked @endif class="cb-value" id="{{$row->user->first_name.$row->id}}"/>
         <span class="round-btn"></span>
     </div>
 </td>

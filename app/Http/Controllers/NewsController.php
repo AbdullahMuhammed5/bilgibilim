@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Http\Requests\NewsRequest;
+use App\Http\Requests\UpdateNewsRequest;
 use App\News;
 use App\Traits\UploadFile;
 use Exception;
@@ -106,11 +107,11 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param NewsRequest $request
+     * @param UpdateNewsRequest $request
      * @param news $news
      * @return RedirectResponse
      */
-    public function update(NewsRequest $request, News $news)
+    public function update(UpdateNewsRequest $request, News $news)
     {
         $news->update($request->all());
         if ($request->file('cover')){
@@ -142,7 +143,6 @@ class NewsController extends Controller
             ['data' => 'id', 'name' => 'id'],
             ['data' => 'staff.user.first_name', 'name' => 'staff.user.first_name', 'defaultContent' => ""],
             ['data' => 'main_title', 'name' => 'main_title'],
-            ['data' => 'secondary_title', 'name' => 'secondary_title'],
             ['data' => 'type', 'name' => 'type'],
             ['data' => 'category.name', 'name' => 'category.name', 'filter_index'=> 'category_id'],
             ['data' => 'views', 'name' => 'views'],
