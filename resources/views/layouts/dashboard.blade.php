@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>INSPINIA | Dashboard </title>
+    <title>bilgibilim | Dashboard </title>
 
     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ asset('font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -137,12 +137,12 @@
                 @endcan
                 @can('category-list')
                     <li class="{{ Request::is('categories', 'categories/*') ? 'active' : '' }}">
-                        <a href="{{ route('jobs.index') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">categories</span>
+                        <a href="{{ route('jobs.index') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Categories</span>
                             <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="{{ route('categories.index') }}">All</a></li>
                             @can('category-create')
-                                <li><a href="{{ route('categories.create') }}">Add category</a></li>
+                                <li><a href="{{ route('categories.create') }}">Add Category</a></li>
                             @endcan
                         </ul>
                     </li>
@@ -189,9 +189,9 @@
                         use Illuminate\Support\Facades\DB;
                         $segments = '';
                         ?>
-                    @if (!Request::is('staffs/*') && !Request::is('visitors/*')
-                        && !Request::is('news/*') && !Request::is('events/*'))
                         @foreach(Request::segments() as $segment)
+                            @if (!Request::is('staffs/*') && !Request::is('categories/*')
+                                && !Request::is('news/*')))
                             <?php $segments .= '/'.$segment;?>
                             <li>
                                 @if(is_numeric($segment))
@@ -201,8 +201,8 @@
                                     <a href="{{ $segments }}" class="active">{{ucfirst($segment)}}</a>
                                 @endif
                             </li>
-                        @endforeach
-                    @endif
+                        @endif
+                    @endforeach
                 </ol>
             </div>
         </div>
@@ -294,8 +294,6 @@
 <!-- Page-Level Scripts -->
 @stack('datatable')
 @stack('ckeditor')
-@stack('dropzone-config')
 @stack('JSValidatorScript')
-@stack('googleMap-script')
 </body>
 </html>

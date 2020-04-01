@@ -159,5 +159,7 @@
     });
 </script>
 
+@stack('article-slider')
+
 </body>
 </html>

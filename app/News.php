@@ -25,16 +25,16 @@ class News extends Model
         return $this->belongsTo(Staff::class, 'author_id');
     }
 
-    public function images(){
-        return $this->morphMany(Image::class, 'imageable');
-    }
+//    public function images(){
+//        return $this->morphMany(Image::class, 'imageable');
+//    }
 
     public function category(){
         return $this->belongsTo(Category::class);
     }
 
-    public function tags(){
-        return $this->belongsToMany(Tag::class);
+    public function cover(){
+        return $this->morphOne(Image::class, 'imageable');
     }
 
     /**

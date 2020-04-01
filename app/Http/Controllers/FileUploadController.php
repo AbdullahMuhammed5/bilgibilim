@@ -41,18 +41,18 @@ class FileUploadController extends Controller
         return $filename;
     }
 
-    public function getFiles($id, $type) // get data for dropzone init function
-    {
-        $images = Image::where('imageable_id', $id)->where('imageable_type', 'App\\'.$type)->get()->toArray();
-        $result = [];
-
-        foreach ($images as $image){
-            $size = Storage::size($image['path']);
-            $type = pathinfo(Storage::url($image['path']), PATHINFO_EXTENSION);
-            array_push($result, ['name' => $image['path'], 'size' => $size, 'type' => $type]);
-        }
-
-        return response()->json($result);
-    }
+//    public function getFiles($id, $type) // get data for dropzone init function
+//    {
+//        $images = Image::where('imageable_id', $id)->where('imageable_type', 'App\\'.$type)->get()->toArray();
+//        $result = [];
+//
+//        foreach ($images as $image){
+//            $size = Storage::size($image['path']);
+//            $type = pathinfo(Storage::url($image['path']), PATHINFO_EXTENSION);
+//            array_push($result, ['name' => $image['path'], 'size' => $size, 'type' => $type]);
+//        }
+//
+//        return response()->json($result);
+//    }
 
 }

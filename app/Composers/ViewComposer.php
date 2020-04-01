@@ -17,7 +17,7 @@ class ViewComposer
     public function __construct()
     {
         $this->allCategories = Category::all();
-        $this->sideSectionNews = News::featured()->with('images')->limit(2)->get()->toArray();
+        $this->sideSectionNews = News::featured()->with('cover')->limit(2)->get()->toArray();
     }
 
     /**

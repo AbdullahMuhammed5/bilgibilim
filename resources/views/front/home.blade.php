@@ -19,7 +19,7 @@
                         @foreach($sliderNews as $key=>$news)
                             <div class="carousel-item @if($news == $sliderNews[0]) active @endif">
                                 <a href="{{ route('front.article',  $news['id'])}}">
-                                    <img src="{{Storage::url($news['images'][0]['path'])}}" class="d-block w-100 mb-4">
+                                    <img src="{{Storage::url($news['cover']['path'])}}" class="d-block w-100 mb-4">
                                     <h3>{{$news['main_title']}}</h3>
                                 </a>
                                 <p class='block-with-text'>{{ $news['secondary_title'] }}</p>
@@ -52,7 +52,7 @@
                 @foreach($mostViews as $article)
                     <a href="{{ route('front.article', $article->id )}}">
                         <figure>
-                            <img src="{{Storage::url($article['images'][0]->path)}}"
+                            <img src="{{Storage::url($article['cover']['path'])}}"
                                  class="w-100 img-fluid mb-3" alt="{{$article->main_title}}">
                             <figcaption>{{$article->main_title}}</figcaption>
                         </figure>
@@ -84,7 +84,7 @@
                         <div class="card col-sm col-md-6 col-lg-3 border-bottom mb-3" style="max-width: 540px;">
                             <div class="row no-gutters mb-3 ">
                                 <div class="col-md-4">
-                                    <img src="{{Storage::url($news['images'][0]->path)}}" class="card-img w-100 mt-3"
+                                    <img src="{{Storage::url($news['cover']['path'])}}" class="card-img w-100 mt-3"
                                          alt="...">
                                 </div>
                                 <div class="col-md-8">
@@ -114,7 +114,7 @@
                 @isset($worldNews[0])
                 <div class="col-sm col-md-6">
                     <a href="{{ route('front.article', $worldNews[0]['id']) }}">
-                    <img src="{{Storage::url($worldNews[0]['images'][0]['path'])}}" alt="" class="w-100 img-fluid mb-3">
+                    <img src="{{Storage::url($worldNews[0]['cover']['path'])}}" alt="" class="w-100 img-fluid mb-3">
                         <h5 class="card-title">{{$worldNews[0]['main_title']}}</h5>
                     <p class="card-text">{{$worldNews[0]['secondary_title']}}</p>
                     </a>
@@ -125,7 +125,7 @@
                     <div class="card mb-5" style="max-width: 540px;">
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="{{Storage::url($news['images'][0]['path'])}}" class="card-img mb-3" alt="...">
+                                <img src="{{Storage::url($news['cover']['path'])}}" class="card-img mb-3" alt="...">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body pt-0">

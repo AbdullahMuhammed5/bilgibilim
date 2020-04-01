@@ -6,13 +6,11 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\NewsRequest;
 use App\News;
-use App\Tag;
 use App\Traits\UploadFile;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
@@ -60,7 +58,6 @@ class NewsController extends Controller
     {
         $types = News::$types;
         $allCategories = Category::pluck('name', 'id')->all();
-//        $tags = Tag::pluck('name', 'name')->all();
         return view('dashboard.news.create', compact('types', 'allCategories'));
     }
 
@@ -74,14 +71,10 @@ class NewsController extends Controller
     {
         $inserted = News::create($request->all());
 
-        if ($images = $request['images']){
-            $inserted->images()->createMany($this->getInputs($images, 'path'));
+        if ($request->file('cover')){
+            $cover = $this->upload($request->file('cover'));
+            $inserted->cover()->create(['path' => $cover]);
         }
-//        foreach ($request['tags'] as $key=>$tag){
-//            $newTag = Tag::updateOrCreate(['name' => $tag]);
-//            $tags[] = $newTag->id;
-//        }
-//        $inserted->tags()->sync($tags);
         return redirect()->route('news.index')
             ->with('success', 'news created successfully');
     }
@@ -106,7 +99,6 @@ class NewsController extends Controller
     public function edit(News $news)
     {
         $allCategories = Category::pluck('name', 'id')->all();
-//        $tags = Tag::pluck('name', 'name')->all();
         $authors = app('App\Http\Controllers\StaffController')->getAuthorsByJob($news->type);
         return view('dashboard.news.edit', compact('news', 'authors', 'allCategories'));
     }
@@ -121,11 +113,10 @@ class NewsController extends Controller
     public function update(NewsRequest $request, News $news)
     {
         $news->update($request->all());
-
-        if ($images = $request['images']){
-            $news->images()->createMany($this->getInputs($images, 'path'));
+        if ($request->file('cover')){
+            $cover = $this->upload($request->file('cover'));
+            $news->cover()->update(['path' => $cover]);
         }
-//        $news->tags()->sync($request['tags']);
         return redirect()->route('news.index')
             ->with('success', 'news updated successfully');
     }
@@ -161,20 +152,12 @@ class NewsController extends Controller
         ];
     }
 
-    // get array of rows to be inserted for many relations (images, files, related news).
-    public function getInputs($values, $fillableColumn){
-        $inputs = [];
-        foreach ($values as $value){
-            array_push($inputs, [$fillableColumn => $value]);
-        }
-        return $inputs;
-    }
-
-    // publish news or un publish it
+    // toggle news publishing
     public function togglePublishing(News $news){
         $news->update(['published' => !$news->published ]);
     }
 
+    // make feature news
     public function toggleFeatured(News $news){
         $news->update(['is_featured' => !$news->is_featured ]);
     }

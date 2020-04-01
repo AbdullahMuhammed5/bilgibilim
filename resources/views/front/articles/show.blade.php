@@ -4,29 +4,67 @@
     <section class="container">
         <div class="row mb-5">
             <div class="col-sm col-md-8">
-                <img src="{{ Storage::url($news['images'][0]->path) }}" alt="" class="w-100 img-fluid mb-4">
-                <h3 class="title">{{ $news->main_title }}</h3>
-                <p>{!! $news->content !!} </p>
+                <div id="articleSliderCarousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#articleSliderCarousel" data-slide-to="0" class="active"></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox" id="article-slider">
+                            <div class="carousel-item active">
+                                <img src="{{Storage::url($news->cover['path'])}}" class="d-block w-100 mb-4">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#articleSliderCarousel" role="button"
+                           data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#articleSliderCarousel" role="button"
+                           data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                </div>
             </div>
             <div class="col-sm col-md-4">
                 <h5 class="title font-weight-bold text-uppercase mb-4">you may like</h5>
-                @foreach($relatedNews as $news)
+                @foreach($relatedNews as $related)
                     <div class="card mb-2" style="max-width: 540px;">
                         <div class="row no-gutters">
-                            <div class="col-md">
-                                <img src="{{ Storage::url($news['images'][0]->path) }}" class="card-img mb-4" alt="...">
+                            <div class="col-md-5">
+                                <img src="{{ Storage::url($related->cover->path) }}" class="card-img mb-4" alt="...">
                             </div>
-                            <div class="col-md">
+                            <div class="col-md-7">
                                 <div class="card-body pt-0">
-
-                                    <a href="{{ route('front.article', $news->id) }}"><h5 class="card-title">{{ $news->main_title }}</h5></a>
-                                    <p class="card-text">{{ strip_tags(substr($news->content, 0, 40)).".." }}</p>
+                                    <a href="{{ route('front.article', $related->id) }}"><h5 class="card-title">{{ $related->main_title }}</h5></a>
+                                    <p class="card-text">{{ strip_tags(substr($related->content, 0, 40)).".." }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
+            <div class="col-sm col-md-8">
+                <h3 class="title">{{ $news->main_title }}</h3>
+                <div id="article-content">{!! $news->content !!} </div>
+            </div>
         </div>
     </section>
 @stop
+
+@push('article-slider')
+    <script>
+        $(function () {
+            const parent = document.querySelector('#article-slider');
+            const carouselIndicators = document.querySelector('.carousel-indicators');
+            const images = [...document.querySelectorAll('#article-content img')]; // from nodeList to array
+            const carouselItems = images.map((img, index) => {
+                    carouselIndicators.innerHTML += `<li data-target="#articleSliderCarousel" data-slide-to="${index+1}"></li>`;
+                    return `<div class="carousel-item">
+                                <img src="${img.src}" class="d-block w-100 mb-4">
+                            </div>`
+                }).join('');
+            parent.innerHTML += carouselItems;
+        })
+    </script>
+@endpush
+

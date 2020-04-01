@@ -48,6 +48,23 @@
                     {{ Form::select('category_id', $allCategories, false, ['placeholder' => 'Select Category', 'class' => 'form-control']) }}
                 </div>
             </div>
+            <div class="col-sm-5">
+                <div class="form-group">
+                    <label>Select Cover:</label>
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput">
+                            <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                            <span class="fileinput-filename"></span>
+                        </div>
+                        <span class="input-group-addon btn btn-default btn-file">
+                    <span class="fileinput-new">Select Image</span>
+                    <span class="fileinput-exists">Change</span>
+                    {!! Form::file('cover') !!}
+                </span>
+                        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    </div>
+                </div>
+            </div>
 {{--            <div class="col-sm-5">--}}
 {{--                <div class="form-group">--}}
 {{--                    <label>Tags:</label>--}}
@@ -58,12 +75,12 @@
 {{--                </div>--}}
 {{--            </div>--}}
         </div>
-        <div class="col-sm-12">
-            <label for="document">Documents</label>
-            <div class="dropzone" id="dropzone">
+{{--        <div class="col-sm-12">--}}
+{{--            <label for="document">Documents</label>--}}
+{{--            <div class="dropzone" id="dropzone">--}}
 
-            </div>
-        </div>
+{{--            </div>--}}
+{{--        </div>--}}
         <div class="col-sm-12 col-md-12 text-center">
             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
         </div>
@@ -71,9 +88,9 @@
     {!! Form::close() !!}
 @endsection
 
-@push('dropzone-config')
-    @include('includes/dropzone-script')
-@endpush
+{{--@push('dropzone-config')--}}
+{{--    @include('includes/dropzone-script')--}}
+{{--@endpush--}}
 
 @push('ckeditor')
     <!-- ckeditor -->

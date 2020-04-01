@@ -7,7 +7,11 @@ use App\Http\Requests\ContactRequest;
 use App\News;
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -18,17 +22,27 @@ class HomeController extends Controller
      */
     public function front()
     {
-        $sliderNews = News::published()->with('images')
+        $sliderNews = News::published()->with( 'cover')
             ->whereDate('created_at', Carbon::today())
+            ->latest()
             ->limit(3)->get()->toArray();
-        $mostViews = News::with('images')->orderBy('views', 'desc')->limit(10)->get();
+
+        $mostViews = News::with('cover')
+            ->orderBy('views', 'desc')
+            ->limit(10)->get();
+
         $categoriesSection = [
             'Politics'   => News::published()->where('category_id', Category::POLITICS)->limit(2)->get(),
             'Technology' => News::published()->where('category_id', Category::TECHNOLOGY)->limit(2)->get(),
             'Sports'     => News::published()->where('category_id', Category::SPORTS)->limit(2)->get(),
             'Science'    => News::published()->where('category_id', Category::SCIENCE)->limit(2)->get(),
         ];
-        $worldNews = News::published()->where('category_id', Category::WORLD)->with('images')->limit(4)->get()->toArray();
+
+        $worldNews = News::published()
+            ->where('category_id', Category::WORLD)
+            ->with('cover')
+            ->limit(4)->get()->toArray();
+
         return view('front.home', compact(
             'sliderNews', 'mostViews', 'categoriesSection', 'worldNews'));
     }
@@ -42,7 +56,10 @@ class HomeController extends Controller
     public function article(News $news)
     {
         $news->update(['views', $news->views++]);
-        $relatedNews = News::published()->where('category_id', $news->category_id)->limit(3)->get();
+        $relatedNews = News::published()
+            ->where('category_id', $news->category_id) // Same category
+            ->Where('id', '<>', $news->id) // Not same article
+            ->latest()->limit(3)->get();
         return view('front.articles.show', compact('news', 'relatedNews'));
     }
 
@@ -85,7 +102,7 @@ class HomeController extends Controller
      * Contact page submit.
      *
      * @param ContactRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function sendContact(ContactRequest $request)
     {
@@ -99,6 +116,12 @@ class HomeController extends Controller
         return redirect()->route('front.contact');
     }
 
+    /**
+     * Search page.
+     *
+     * @param Request $request
+     * @return Factory|View
+     */
     public function search(Request $request)
     {
         $term = trim($request['keyword']);
