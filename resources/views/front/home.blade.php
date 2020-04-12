@@ -5,7 +5,9 @@
 <section class="container">
     <!--  main section  -->
     <section class="main-sec">
-        <h2 class="title mb-5 text-uppercase font-weight-bold">Today News</h2>
+        <h2 class="title mb-5 text-uppercase font-weight-bold">
+            @if(isset($sectionHeaders['today'])) {{ $sectionHeaders['today'] }} @else Today News @endif
+        </h2>
         <div class="row no-gutters mb-5">
             <div class="col-sm col-md-8 pl-0">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -46,7 +48,9 @@
 
     <!-- en cok oku   -->
     <section class="en-cok-oku">
-        <h2 class="title mb-5 text-uppercase font-weight-bold">Most Read</h2>
+        <h2 class="title mb-5 text-uppercase font-weight-bold">
+            @if(isset($sectionHeaders['most_read'])) {{ $sectionHeaders['most_read'] }} @else Most Read @endif
+        </h2>
         <div class="regular">
             @isset($mostViews)
                 @foreach($mostViews as $article)
@@ -65,7 +69,9 @@
 
     <!-- categories section -->
     <section class="categories">
-        <h2 class="title mb-5 text-uppercase front-weight-bold">categories</h2>
+        <h2 class="title mb-5 text-uppercase front-weight-bold">
+            @if(isset($sectionHeaders['categories'])) {{ $sectionHeaders['categories'] }} @else categories @endif
+        </h2>
         <div class="row img-art mb-5">
             @isset($categoriesSection)
                 @foreach($categoriesSection as $name=>$category)
@@ -107,7 +113,9 @@
 
     <!-- world section  -->
     <section class="world">
-        <h2 class="title mb-5 text-uppercase front-weight-bold">world news</h2>
+        <h2 class="title mb-5 text-uppercase front-weight-bold">
+            @if(isset($sectionHeaders['world'])) {{ $sectionHeaders['world'] }} @else world news @endif
+        </h2>
         <div class="row">
 
             @isset($worldNews)

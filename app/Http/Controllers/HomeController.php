@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\FooterLink;
+use App\HomeHeader;
 use App\Http\Requests\ContactRequest;
 use App\News;
 use Carbon\Carbon;
@@ -38,13 +40,22 @@ class HomeController extends Controller
             'Science'    => News::published()->where('category_id', Category::SCIENCE)->limit(2)->get(),
         ];
 
+        $sectionHeadersAll = HomeHeader::all();
+
+        $sectionHeaders = [
+            'today' => $sectionHeadersAll[0]->text,
+            'most_read' => $sectionHeadersAll[1]->text,
+            'categories' => $sectionHeadersAll[2]->text,
+            'world' => $sectionHeadersAll[3]->text,
+        ];
+
         $worldNews = News::published()
             ->where('category_id', Category::WORLD)
             ->with('cover')
             ->limit(4)->get()->toArray();
 
         return view('front.home', compact(
-            'sliderNews', 'mostViews', 'categoriesSection', 'worldNews'));
+            'sliderNews', 'mostViews', 'categoriesSection', 'worldNews', 'sectionHeaders'));
     }
 
     /**
@@ -74,15 +85,6 @@ class HomeController extends Controller
         return view('front.articles.index', compact('allNews'));
     }
 
-    /**
-     * Show Contact Page.
-     *
-     * @return Renderable
-     */
-    public function contact()
-    {
-        return view('front.contact.index');
-    }
 
     /**
      * Show the application dashboard.
@@ -98,23 +100,6 @@ class HomeController extends Controller
         }
     }
 
-    /**
-     * Contact page submit.
-     *
-     * @param ContactRequest $request
-     * @return RedirectResponse|Redirector
-     */
-    public function sendContact(ContactRequest $request)
-    {
-        \DB::table('contact')->insert([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'message' => $request->input('message'),
-        ]);
-
-        return redirect()->route('front.contact');
-    }
 
     /**
      * Search page.

@@ -3,6 +3,7 @@
 namespace App\Composers;
 
 use App\Category;
+use App\FooterLink;
 use App\News;
 use Illuminate\View\View;
 
@@ -10,6 +11,7 @@ class ViewComposer
 {
     protected $allCategories;
     protected $sideSectionNews;
+    protected $footerLinks;
 
     /**
      * Create a new ViewComposer instance.
@@ -17,7 +19,8 @@ class ViewComposer
     public function __construct()
     {
         $this->allCategories = Category::all();
-        $this->sideSectionNews = News::featured()->with('cover')->limit(2)->get()->toArray();
+        $this->footerLinks = FooterLink::all();
+        $this->sideSectionNews = News::published()->featured()->with('cover')->limit(2)->get()->toArray();
     }
 
     /**
@@ -30,5 +33,6 @@ class ViewComposer
     {
         $view->with('categories', $this->allCategories);
         $view->with('sideSectionNews', $this->sideSectionNews);
+        $view->with('footerLinks', $this->footerLinks);
     }
 }

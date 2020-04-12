@@ -82,10 +82,9 @@
             <section class="products col-sm col-md-3 col-lg-4 mb-5">
                 <h4 class="text-uppercase mb-4">top products</h4>
                 <ul class="pl-0">
-                    <li>Managed website</li>
-                    <li>Manage Reputation</li>
-                    <li>Power Tools</li>
-                    <li>Marketing Servicse</li>
+                    @foreach($footerLinks as $link)
+                        <li><a target="_blank" href="http://{{ $link->url }}" class="text-white">{{ $link->text }}</a></li>
+                    @endforeach
                 </ul>
             </section>
             <section class="email col-sm col-md-6 col-lg-4 mb-5">

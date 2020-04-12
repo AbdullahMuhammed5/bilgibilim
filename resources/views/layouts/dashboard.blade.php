@@ -56,6 +56,14 @@
                 <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
                     <a href="{{ url('/dashboard') }}"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
+                <li>
+                    <a href="{{ route('home-headers.index') }}"><i class="fa fa-briefcase"></i> <span class="nav-label">Manage Front Page</span>
+                        <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="{{ route('home-headers.index') }}">Manage Sections Titles</a></li>
+                        <li><a href="{{ route('footer-links.index') }}">Manage Footer Links</a></li>
+                    </ul>
+                </li>
                 @can('role-list')
                 <li class="{{ Request::is('roles', 'roles/*') ? 'active' : '' }}">
                     <a href="{{ route('roles.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Roles</span>
@@ -172,7 +180,7 @@
                         ?>
                         @foreach(Request::segments() as $segment)
                             @if (!Request::is('staffs/*') && !Request::is('categories/*')
-                                && !Request::is('news/*'))
+                                && !Request::is('news/*') && !Request::is('home-headers/*')&& !Request::is('footer-links/*'))
                             <?php $segments .= '/'.$segment;?>
                             <li>
                                 @if(is_numeric($segment))

@@ -25,10 +25,6 @@ class News extends Model
         return $this->belongsTo(Staff::class, 'author_id');
     }
 
-//    public function images(){
-//        return $this->morphMany(Image::class, 'imageable');
-//    }
-
     public function category(){
         return $this->belongsTo(Category::class);
     }

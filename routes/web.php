@@ -24,8 +24,12 @@ Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::get('/articles', 'HomeController@articles')->name('front.articles');
 Route::get('/article/{news}', 'HomeController@article')->name('front.article');
 Route::get('/news', 'HomeController@news')->name('front.news');
-Route::get('/contact', 'HomeController@contact')->name('front.contact');
-Route::post('/sendContact', 'HomeController@sendContact')->name('front.sendContact');
+Route::group(['namespace' => 'Home'], function (){
+    Route::get('/contact', 'ContactController@index')->name('front.contact');
+    Route::post('/sendContact', 'ContactController@sendContact')->name('front.sendContact');
+    Route::resource('home-headers', 'HomeHeadersController')->only(['index', 'update', 'edit']);
+    Route::resource('footer-links', 'FooterLinksController')->only(['index', 'update', 'edit']);
+});
 Route::get('/search', 'HomeController@search')->name('front.search');
 
 // resources
