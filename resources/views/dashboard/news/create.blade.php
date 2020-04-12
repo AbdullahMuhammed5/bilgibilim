@@ -65,22 +65,7 @@
                     </div>
                 </div>
             </div>
-{{--            <div class="col-sm-5">--}}
-{{--                <div class="form-group">--}}
-{{--                    <label>Tags:</label>--}}
-{{--                    {!! Form::select('tags[]', $tags, null, ["data-placeholder"=>"Select tags ...",--}}
-{{--                    'multiple', "class"=>"chosen-select", 'id' => 'get-tags']) !!}--}}
-{{--                    <span class="invalid-feedback" id="maxValueFeedback"--}}
-{{--                          style="display: none">You just hit the maximum length of tags.</span>--}}
-{{--                </div>--}}
-{{--            </div>--}}
         </div>
-{{--        <div class="col-sm-12">--}}
-{{--            <label for="document">Documents</label>--}}
-{{--            <div class="dropzone" id="dropzone">--}}
-
-{{--            </div>--}}
-{{--        </div>--}}
         <div class="col-sm-12 col-md-12 text-center">
             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
         </div>
@@ -88,20 +73,17 @@
     {!! Form::close() !!}
 @endsection
 
-{{--@push('dropzone-config')--}}
-{{--    @include('includes/dropzone-script')--}}
-{{--@endpush--}}
-
 @push('ckeditor')
     <!-- ckeditor -->
-    <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+    <script src="{{asset('js/plugins/ckeditor/ckeditor.js')}}"></script>
     <script>
         // Ckeditor
         if ($('#editor').length){
             CKEDITOR.replace('editor', {
                 filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
-                filebrowserUploadMethod: 'form'
+                filebrowserUploadMethod: 'form',
             });
+            CKEDITOR.config.extraPlugins = 'font,colorbutton,colordialog'
         }
     </script>
 @endpush

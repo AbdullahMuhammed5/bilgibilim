@@ -41,9 +41,9 @@
                 <li class="nav-item d-flex align-items-center">
                     <div class="d-flex">
                         <div class="dropdown mr-1">
-                            <a href="#categories" class="nav-link dropdown-toggle" id="dropdownMenuOffset"
+                            <a href="#categories" class="nav-link" id="dropdownMenuOffset"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                               data-offset="10,20">categories <i class="fas fa-chevron-down"></i>
+                               data-offset="10,20">categories <i class="fa fa-chevron-down"></i>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                                 @foreach($categories as $category)
@@ -52,9 +52,6 @@
                             </div>
                         </div>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('front.category', 'World')}}" class="nav-link"> World</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('front.articles')}}" class="nav-link"> Blog</a>
