@@ -25,20 +25,19 @@ class HomeController extends Controller
     public function front()
     {
         $sliderNews = News::published()->with( 'cover')
-            ->whereDate('created_at', Carbon::today())
             ->latest()
             ->limit(3)->get()->toArray();
 
-        $mostViews = News::with('cover')
+        $mostViews = News::published()
+            ->with('cover')
             ->orderBy('views', 'desc')
             ->limit(10)->get();
 
-        $categoriesSection = [
-            'Politics'   => News::published()->where('category_id', Category::POLITICS)->limit(2)->get(),
-            'Technology' => News::published()->where('category_id', Category::TECHNOLOGY)->limit(2)->get(),
-            'Sports'     => News::published()->where('category_id', Category::SPORTS)->limit(2)->get(),
-            'Science'    => News::published()->where('category_id', Category::SCIENCE)->limit(2)->get(),
-        ];
+        $categoriesSection = Category::with(['news', 'cover'])->limit(4)->get()
+            ->map(function($category){
+                $category->setRelation('news', $category->news->take(2));
+                return $category;
+            });
 
         $sectionHeadersAll = HomeHeader::all();
 

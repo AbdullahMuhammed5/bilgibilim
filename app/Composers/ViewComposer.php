@@ -20,7 +20,7 @@ class ViewComposer
     {
         $this->allCategories = Category::all();
         $this->footerLinks = FooterLink::all();
-        $this->sideSectionNews = News::published()->featured()->with('cover')->limit(2)->get()->toArray();
+        $this->sideSectionNews = News::published()->with('cover')->limit(5)->get()->toArray();
     }
 
     /**

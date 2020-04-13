@@ -17,19 +17,19 @@ class FooterLinksSeeder extends Seeder
         $links = [
             [
                 'text' => 'Manage website',
-                'url' => 'www.bilgibilim.com/'
+                'url' => 'bilgibilim.com/'
             ],
             [
                 'text' => 'Manage Reputation',
-                'url' => 'www.bilgibilim.com/'
+                'url' => 'bilgibilim.com/'
             ],
             [
                 'text' => 'Power Tool',
-                'url' => 'www.bilgibilim.com/'
+                'url' => 'bilgibilim.com/'
             ],
             [
                 'text' => 'Marketing Services',
-                'url' => 'www.bilgibilim.com/'
+                'url' => 'bilgibilim.com/'
             ],
         ];
 

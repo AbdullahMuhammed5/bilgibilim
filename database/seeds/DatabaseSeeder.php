@@ -20,6 +20,5 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesSeeder::class);
         $this->call(HomeHeadersSeeder::class);
         $this->call(FooterLinksSeeder::class);
-//        $this->call(NewsSeeder::class);
     }
 }

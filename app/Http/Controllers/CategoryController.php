@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\CategoryRequest;
 use App\News;
+use App\Traits\UploadFile;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
@@ -13,6 +15,8 @@ use Yajra\DataTables\DataTables;
 
 class CategoryController extends Controller
 {
+    use UploadFile;
+
     public function __construct()
     {
         $this->authorizeResource(Category::class);
@@ -21,6 +25,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Factory|View
      * @throws \Exception
      */
@@ -51,12 +56,16 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param CategoryRequest $request
+     * @return RedirectResponse
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
+        $inserted = Category::create($request->all());
+        if ($request->file('cover')){
+            $cover = $this->upload($request->file('cover'));
+            $inserted->cover()->create(['path' => $cover]);
+        }
         return redirect()->route('categories.index')
             ->with('success', 'Category created successfully');
     }
@@ -64,7 +73,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category  $category
+     * @param Category $category
      * @return Factory|View
      */
     public function edit(Category $category)
@@ -75,13 +84,17 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\RedirectResponse
+     * @param CategoryRequest $request
+     * @param Category $category
+     * @return RedirectResponse
      */
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->all());
+        if ($request->file('cover')){
+            $cover = $this->upload($request->file('cover'));
+            $category->cover()->updateOrCreate(['path' => $cover]);
+        }
         return redirect()->route('categories.index')
             ->with('success', 'Category updated successfully');
     }
@@ -89,8 +102,8 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Category $category
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Category $category
+     * @return RedirectResponse
      * @throws \Exception
      */
     public function destroy(Category $category)
@@ -110,7 +123,9 @@ class CategoryController extends Controller
     {
         $category = Category::whereName($name)->with('news')->get()->first();
         $allNews = $category->news()->paginate(5);
-        $otherCategories = Category::whereNotIn('id', [$category->id])->limit(4)->get();
+        $otherCategories = Category::with('cover')
+            ->whereNotIn('id', [$category->id])
+            ->limit(4)->get();
         return view('front.categories.view', compact('allNews', 'otherCategories'));
     }
 

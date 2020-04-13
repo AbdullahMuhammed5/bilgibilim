@@ -14,7 +14,7 @@ class HomeHeadersSeeder extends Seeder
 
     public function run()
     {
-        $texts = ['Today News', 'Most Viewed', 'Categories', 'World News'];
+        $texts = ['latest News', 'Most Viewed', 'Categories', 'World News'];
 
         foreach ($texts as $text) {
             HomeHeader::firstOrCreate(['text' => $text]);

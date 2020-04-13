@@ -56,7 +56,7 @@
                 @foreach($mostViews as $article)
                     <a href="{{ route('front.article', $article->id )}}">
                         <figure>
-                            <img src="{{Storage::url($article['cover']['path'])}}"
+                            <img src="{{$article['cover']?Storage::url($article['cover']['path']):''}}"
                                  class="w-100 img-fluid mb-3" alt="{{$article->main_title}}">
                             <figcaption>{{$article->main_title}}</figcaption>
                         </figure>
@@ -74,19 +74,19 @@
         </h2>
         <div class="row img-art mb-5">
             @isset($categoriesSection)
-                @foreach($categoriesSection as $name=>$category)
+                @foreach($categoriesSection as $category)
                     <div class="col-lg-3 col-sm-6">
                         <div class="img-over">
-                            <a href="{{ route('front.category', $name) }}">
-                                <figure class="w-100"><img src="{{asset("img/front/category-".strtolower($name).".jpg")}}" alt=""
+                            <a href="{{ route('front.category', $category->name) }}">
+                                <figure class="w-100"><img src="{{$category->cover ? Storage::url($category->cover->path) : asset("img/front/category-".strtolower($category->name).".jpg")}}" alt=""
                                              class="w-100 img-fluid mb-3">
                                 </figure>
                                 <div class="overlay">
-                                    <h6 class="text-uppercase">{{$name}}</h6>
+                                    <h6 class="text-uppercase">{{$category->name}}</h6>
                                 </div>
                             </a>
                         </div>
-                    @foreach($category as $news)
+                    @foreach($category->news as $news)
                         <div class="card col-sm col-md-6 col-lg-3 border-bottom mb-3" style="max-width: 540px;">
                             <div class="row no-gutters mb-3 ">
                                 <div class="col-md-4">
@@ -98,7 +98,7 @@
                                         <a href="{{ route('front.article', $news->id) }}">
                                             <p class="mb-0">{{$news->main_title}}</p>
                                         </a>
-                                        <p class="card-text"><small class="text-muted">{{ $news->created_at->diffForHumans() }}</small></p>
+                                        <p class="card-text"><small class="text-muted">{{ $news->created_at?$news->created_at->diffForHumans():'' }}</small></p>
                                     </div>
                                 </div>
                             </div>

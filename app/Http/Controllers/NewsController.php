@@ -76,6 +76,7 @@ class NewsController extends Controller
             $cover = $this->upload($request->file('cover'));
             $inserted->cover()->create(['path' => $cover]);
         }
+        dd("Asdas");
         return redirect()->route('news.index')
             ->with('success', 'news created successfully');
     }

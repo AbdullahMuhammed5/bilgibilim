@@ -33,7 +33,7 @@
             @foreach($otherCategories as $category)
             <div class="col-sm col-md-6 col-lg-3 img-over">
                 <a href="{{ route('front.category', $category->name) }}">
-                    <figure><img src="{{ asset("img/front/category-".strtolower($category->name).".jpg") }}" alt=""
+                    <figure><img src="{{ $category->cover ? Storage::url($category->cover->path) : asset("img/front/category-".strtolower($category->name).".jpg") }}" alt=""
                                  class="w-100 img-fluid mb-3">
                     </figure>
                     <div class="overlay">

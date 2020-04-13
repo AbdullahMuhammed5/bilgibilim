@@ -4,26 +4,30 @@
     <section class="container">
         <div class="row mb-5">
             <div class="col-sm col-md-8">
+                <h3 class="title">{{ $news->main_title }}</h3>
+                <h3 class="title">{{ $news->secondary_title }}</h3>
                 <div id="articleSliderCarousel" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#articleSliderCarousel" data-slide-to="0" class="active"></li>
-                        </ol>
-                        <div class="carousel-inner" role="listbox" id="article-slider">
-                            <div class="carousel-item active">
-                                <img src="{{Storage::url($news->cover['path'])}}" class="d-block w-100 mb-4">
-                            </div>
+                    <ol class="carousel-indicators">
+                        <li data-target="#articleSliderCarousel" data-slide-to="0" class="active"></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox" id="article-slider">
+                        <div class="carousel-item active">
+                            <img src="{{Storage::url($news->cover['path'])}}" class="d-block w-100 mb-4">
                         </div>
-                        <a class="carousel-control-prev" href="#articleSliderCarousel" role="button"
-                           data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#articleSliderCarousel" role="button"
-                           data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                    </div>
+                    <a class="carousel-control-prev" href="#articleSliderCarousel" role="button"
+                       data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#articleSliderCarousel" role="button"
+                       data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
+                <p>{{ $news->created_at? $news->created_at->diffForHumans():'' }}</p>
+                <div id="article-content">{!! $news->content !!} </div>
             </div>
             <div class="col-sm col-md-4">
                 <h5 class="title font-weight-bold text-uppercase mb-4">you may like</h5>
@@ -43,10 +47,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="col-sm col-md-8">
-                <h3 class="title">{{ $news->main_title }}</h3>
-                <div id="article-content">{!! $news->content !!} </div>
-            </div>
+
         </div>
     </section>
 @stop
