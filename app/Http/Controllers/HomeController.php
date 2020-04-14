@@ -24,7 +24,8 @@ class HomeController extends Controller
      */
     public function front()
     {
-        $sliderNews = News::published()->with( 'cover')
+        $sliderNews = News::published()
+            ->with( 'cover')
             ->latest()
             ->limit(3)->get()->toArray();
 
@@ -49,8 +50,8 @@ class HomeController extends Controller
         ];
 
         $worldNews = News::published()
-            ->where('category_id', Category::WORLD)
             ->with('cover')
+            ->where('category_id', Category::WORLD)
             ->limit(4)->get()->toArray();
 
         return view('front.home', compact(

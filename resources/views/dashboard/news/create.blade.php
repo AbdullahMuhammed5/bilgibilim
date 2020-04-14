@@ -83,7 +83,7 @@
                 filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
                 filebrowserUploadMethod: 'form',
             });
-            CKEDITOR.config.extraPlugins = 'font,colorbutton,colordialog'
+            CKEDITOR.config.extraPlugins = 'font,colorbutton,colordialog,youtube'
         }
     </script>
 @endpush

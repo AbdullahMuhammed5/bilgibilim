@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\WelcomeEmail;
+use App\Mail\ContactUsMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -33,6 +33,6 @@ class WelcomeEmailJob implements ShouldQueue
     public function handle()
     {
         $user = $this->userData->toArray();
-        Mail::to($this->userData['email'])->send(new WelcomeEmail($user));
+        Mail::to($this->userData['email'])->send(new ContactUsMail($user));
     }
 }
