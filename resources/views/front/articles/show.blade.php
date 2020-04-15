@@ -5,7 +5,7 @@
         <div class="row mb-5">
             <div class="col-sm col-md-8">
                 <h3 class="title">{{ $news->main_title }}</h3>
-                <p class="text-muted">{{ substr($news->secondary_title, 0, 100)."..." }}</p>
+                <p class="text-muted">{{ $news->secondary_title }}</p>
                 <div id="articleSliderCarousel" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#articleSliderCarousel" data-slide-to="0" class="active"></li>

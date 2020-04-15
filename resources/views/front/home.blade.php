@@ -24,7 +24,7 @@
                                     <img src="{{Storage::url($news['cover']['path'])}}" class="d-block w-100 mb-4">
                                     <h3>{{$news['main_title']}}</h3>
                                 </a>
-                                <p class='block-with-text'>{{ $news['secondary_title'] }}</p>
+                                <p class='block-with-text'>{{ substr($news['secondary_title'], 0, 200)."..." }}</p>
                             </div>
                         @endforeach
                     </div>
@@ -41,7 +41,9 @@
                     @endif
                 </div>
             </div>
-           @include('includes.SideSection')
+            <div class="offset-md-1 col-sm col-md-3 pl-0">
+                @include('includes.SideSection')
+            </div>
         </div>
     </section>
     <!-- end of main section -->
@@ -124,7 +126,7 @@
                     <a href="{{ route('front.article', $worldNews[0]['id']) }}">
                     <img src="{{Storage::url($worldNews[0]['cover']['path'])}}" alt="" class="w-100 img-fluid mb-3">
                         <h5 class="card-title">{{$worldNews[0]['main_title']}}</h5>
-                    <p class="card-text">{{$worldNews[0]['secondary_title']}}</p>
+                    <p class="card-text">{{substr($worldNews[0]['secondary_title'], 0, 200)."..."}}</p>
                     </a>
                 </div>
                 @endisset
@@ -140,7 +142,7 @@
                                     <a href="{{ route('front.article', $news['id']) }}">
                                         <h5 class="card-title">{{$news['main_title']}}</h5>
                                     </a>
-                                    <p class="card-text">{{$news['secondary_title']}}</p>
+                                    <p class="card-text">{{substr($worldNews[0]['secondary_title'], 0, 100)."..."}}</p>
                                 </div>
                             </div>
                         </div>

@@ -16,7 +16,9 @@
                         </section>
                     @endforeach
                 </div>
-                @include('includes.SideSection')
+                <div class="offset-md-1 col-sm col-md-3 pl-0">
+                    @include('includes.SideSection')
+                </div>
             @else
                 <p>There is no results.</p>
             @endif
