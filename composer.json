@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.1.3",
         "biscolab/laravel-recaptcha": "^4.0",
+        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "kreait/firebase-php": "^4.35",
         "kreait/laravel-firebase": "^1.2",

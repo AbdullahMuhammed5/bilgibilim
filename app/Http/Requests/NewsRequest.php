@@ -26,8 +26,8 @@ class NewsRequest extends FormRequest
     public function rules()
     {
         return [
-            'main_title' => 'required|min:3|max:150',
-            'secondary_title' => 'min:3|max:250',
+            'main_title' => 'required|min:1',
+            'secondary_title' => 'min:1',
             'author_id' => 'required|int',
             'type' => 'required|'.Rule::in(News::$types),
             'content'=> 'required|string',
