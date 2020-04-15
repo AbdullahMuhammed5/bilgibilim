@@ -13,7 +13,7 @@
                     <a href="{{ route('front.article', $news['id']) }}">
                         <h3>{{$news['main_title']}}</h3>
                     </a>
-                    <p class="mb-5">{!! substr($news['content'], 0, 300).'...' !!} </p>
+                    <p class="mb-5">{{ substr(strip_tags($news['content']), 0, 300).'...' }} </p>
                 </section>
                 @endforeach
             </div>
