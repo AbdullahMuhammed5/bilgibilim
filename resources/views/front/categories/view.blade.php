@@ -18,9 +18,10 @@
                 @endforeach
             </div>
             <div class="offset-md-1 col-sm col-md-3 pl-0">
+                <h5 class="title font-weight-bold text-uppercase mb-4">latest news</h5>
                 @include('includes.SideSection')
             </div>
-                @else
+            @else
                 <p>There is no articles in this category.</p>
             @endif
         </div>
