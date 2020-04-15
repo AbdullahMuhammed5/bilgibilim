@@ -69,7 +69,7 @@
 
     <!-- categories section -->
     <section class="categories">
-        <h2 class="title mb-5 text-uppercase front-weight-bold">
+        <h2 class="title mb-5 text-uppercase font-weight-bold">
             @if(isset($sectionHeaders['categories'])) {{ $sectionHeaders['categories'] }} @else categories @endif
         </h2>
         <div class="row img-art mb-5">
@@ -113,7 +113,7 @@
 
     <!-- world section  -->
     <section class="world">
-        <h2 class="title mb-5 text-uppercase front-weight-bold">
+        <h2 class="title mb-5 text-uppercase font-weight-bold">
             @if(isset($sectionHeaders['world'])) {{ $sectionHeaders['world'] }} @else world news @endif
         </h2>
         <div class="row">

@@ -27,7 +27,7 @@ a:hover{
     margin-bottom: 3rem;
 }
 
-.main-sec, .en-cok-oku, .categories, .category-news {
+.main-sec, .en-cok-oku, .categories, .category-news:not(:last-child) {
     border-bottom: 0.1rem #000f52 solid;
 }
 
@@ -100,8 +100,8 @@ a:hover{
     position: absolute;
     align-items: center;
     justify-content: center;
-    top: 3.7rem;
-    left: 4.7rem;
+    top: 4.7rem;
+    left: 6.7rem;
     opacity: 0;
     z-index: 2;
     color: #fff;

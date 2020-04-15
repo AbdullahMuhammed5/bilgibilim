@@ -5,7 +5,7 @@
         <div class="row mb-5">
             <div class="col-sm col-md-8">
                 <h3 class="title">{{ $news->main_title }}</h3>
-                <h3 class="title">{{ $news->secondary_title }}</h3>
+                <p class="text-muted">{{ substr($news->secondary_title, 0, 100)."..." }}</p>
                 <div id="articleSliderCarousel" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#articleSliderCarousel" data-slide-to="0" class="active"></li>
@@ -26,7 +26,12 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-                <p>{{ $news->created_at? $news->created_at->diffForHumans():'' }}</p>
+                <p class="text-muted p-2" style="border-left: #8f8fa1 solid 1px; border-right: #8f8fa1 solid 1px;">
+                    <i class="fa fa-calendar"> </i>
+                    {{ $news->created_at? $news->created_at->diffForHumans():'' }} -
+                    <i class="fa fa-eye"> </i>
+                    {{ $news->views }} views
+                </p>
                 <div id="article-content">{!! $news->content !!} </div>
             </div>
             <div class="col-sm col-md-4">
