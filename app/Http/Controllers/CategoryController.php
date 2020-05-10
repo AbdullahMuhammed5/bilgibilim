@@ -91,9 +91,14 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->all());
+
         if ($request->file('cover')){
             $cover = $this->upload($request->file('cover'));
-            $category->cover()->updateOrCreate(['path' => $cover]);
+            if ($category->cover){
+                $category->cover()->update(['path' => $cover]);
+            } else{
+                $category->cover()->create(['path' => $cover]);
+            }
         }
         return redirect()->route('categories.index')
             ->with('success', 'Category updated successfully');

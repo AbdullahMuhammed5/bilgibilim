@@ -13,7 +13,7 @@
 
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    {!! htmlScriptTagJsApi() !!}
+{{--    {!! htmlScriptTagJsApi() !!}--}}
 </head>
 
 <body class="gray-bg">
@@ -22,13 +22,10 @@
     <div>
         <div>
 
-            <h1 class="logo-name">IN+</h1>
+            <h1 class="logo-name" style="background-color: #000f52"><img src="{{  asset('img/front/blilgilm-logo.png') }}" alt=""></h1>
 
         </div>
-        <h3>Welcome to IN+</h3>
-        <p>Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
-            <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
-        </p>
+        <h3 style="margin: 30px 0">Welcome to bilgibilim Dashboard</h3>
 
             @yield('content')
 
